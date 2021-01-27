@@ -5,23 +5,34 @@ import styled from 'styled-components'
 
 export default function Login (){
 
+    //State for login
     const [login, setLogin] = useState({
         username: '',
         password:'',
         phonenumber:''
     })
 
-    console.log(login)
-
+    
+    const [loginDone, setLoginDone ] = useState([])
+    
+    // Change function
     const onChange = e =>{
 
         const { name, value } = e.target
         setLogin({...login, [name]: value})
     }
 
+    //Submit function - 
     const onSubmit = e => {
         console.log('Login form submitted')
         e.preventDefault();
+        
+        setLoginDone({...loginDone})
+        setLogin({
+            username: '',
+            password:'',
+            phonenumber:''
+        })
     }
 
     return(
