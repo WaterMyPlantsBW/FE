@@ -9,7 +9,7 @@ export default function Login (){
     const [login, setLogin] = useState({
         username: '',
         password:'',
-        phonenumber:''
+        phone:''
     })
 
     
@@ -20,6 +20,7 @@ export default function Login (){
 
         const { name, value } = e.target
         setLogin({...login, [name]: value})
+        
     }
 
     //Submit function - 
@@ -27,11 +28,14 @@ export default function Login (){
         console.log('Login form submitted')
         e.preventDefault();
         
-        setLoginDone({...loginDone})
+        const loginComplete = { username: login.username.trim(), password: login.password, phone: login.phone}
+        
+        setLoginDone([...loginDone, loginComplete])
+        
         setLogin({
             username: '',
             password:'',
-            phonenumber:''
+            phone:''
         })
     }
 
@@ -61,7 +65,7 @@ export default function Login (){
                     <label>Phone Number
                         <input 
                             type="tel" 
-                            id="phone" 
+                            id='phone' 
                             name="phone"
                             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                             required
