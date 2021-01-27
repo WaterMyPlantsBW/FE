@@ -51,6 +51,7 @@ export default function Login (){
                             name="username"
                             type='text'
                             placeholder='Enter Username'
+                            value={login.username}
                             onChange={onChange}/>
                     </label>
                     <br/>
@@ -59,6 +60,7 @@ export default function Login (){
                             name="password"
                             type="password"
                             placeholder='Enter Password'
+                            value={login.password}
                             onChange={onChange}/>
                     </label>
                     <br/>
@@ -70,6 +72,7 @@ export default function Login (){
                             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                             required
                             placeholder='Enter Phone Number'
+                            value={login.phone}
                             onChange={onChange}/>    
                     </label>
                     <br/>
