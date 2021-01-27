@@ -11,7 +11,8 @@ export default function Login (){
         phonenumber:''
     })
 
-    console.log(login)
+
+    
 
     const onChange = e =>{
 
@@ -22,6 +23,13 @@ export default function Login (){
     const onSubmit = e => {
         console.log('Login form submitted')
         e.preventDefault();
+
+
+        setLogin({
+            username: '',
+            password:'',
+            phonenumber:''
+        })
     }
 
     return(
