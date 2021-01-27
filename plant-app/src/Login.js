@@ -19,15 +19,15 @@ export default function Login (){
         setLogin({...login, [name]: value})
     }
 
-    // const onSubmit = () => {
-
-
-    // }
+    const onSubmit = e => {
+        console.log('Login form submitted')
+        e.preventDefault();
+    }
 
     return(
         <div>
             <h1>Plantz?</h1>
-                <form>
+                <form onSubmit={onSubmit}>
                     
                     <h2>Login</h2>
                     <br/>
