@@ -16,25 +16,31 @@ const schema = yup.object().shape({
 })
 
 
-export default function Login (){
+export default function PlantReg (){
 
-    //State for login
-    const [login, setLogin] = useState({
-        username: '',
-        password:'',
+    //State for plant
+    const [plant, setPlant] = useState({
+        id: '',
+        nickname: '',
+        species: '',
+        H20Frequency: '',
+        image: ''
         
     })
 
-    // State for a completed login (can be rendered if needed)
-    const [loginDone, setLoginDone ] = useState([])
+    // State for a completed plant (can be rendered if needed)
+    const [plantDone, setPlantDone ] = useState([])
 
-    //state to disable login submit button 
+    //state to disable plant submit button 
     const [disabled, setDisabled] = useState(true)
 
-    //state to set errors for login 
-    const [loginErrors, setLoginErrors] = useState({
-        username: '',
-        password:'',
+    //state to set errors for plant 
+    const [plantErrors, setPlantErrors] = useState({
+        id: '',
+        nickname: '',
+        species: '',
+        H20Frequency: '',
+        image: ''
         
     })
 
@@ -43,23 +49,23 @@ export default function Login (){
 
     yup.reach(schema, name)
       .validate(value)
-      .then(() => setLoginErrors({...loginErrors, [name]: ''}))
-      .catch(err => setLoginErrors({...loginErrors, [name]: err.loginErrors[0]}))
+      .then(() => setPlantErrors({...plantErrors, [name]: ''}))
+      .catch(err => setPlantErrors({...plantErrors, [name]: err.plantErrors[0]}))
     }
  
 
     useEffect(() =>{
-        schema.isValid(login).then(valid =>  setDisabled(!valid))
-    }, [login])
+        schema.isValid(plant).then(valid =>  setDisabled(!valid))
+    }, [plant])
 
     
     // Change function
     const onChange = e =>{
         
         const { name, value } = e.target
-        setLogin({...login, [name]: value})
+        setPlant({...plant, [name]: value})
         
-        // setLoginErrors(validate(login));
+        // setPlantErrors(validate(plant));
 
         
     }
@@ -69,13 +75,16 @@ export default function Login (){
         console.log('Login form submitted')
         e.preventDefault();
         
-        const loginComplete = { username: login.username.trim(), password: login.password}
+        const plantComplete = { username: plant.username.trim(), password: plant.password}
         
-        setLoginDone([...loginDone, loginComplete])
+        setPlantDone([...plantDone, plantComplete])
         
-        setLogin({
-            username: '',
-            password:'',
+        setPlant({
+            id: '',
+            nickname: '',
+            species: '',
+            H20Frequency: '',
+            image: ''
             
         })
     }
@@ -85,35 +94,35 @@ export default function Login (){
             
                 <form onSubmit={onSubmit}>
                     
-                    <h2>Login</h2>
+                    <h2>Register Your Plant</h2>
                     <br/>
                     <label>Username
                         <input
                             name="username"
                             type='text'
                             placeholder='Enter Username'
-                            value={login.username}
+                            value={plant.username}
                             onChange={onChange}
                             />
                     </label>
                     <br/>
-                    <div>{loginErrors.username}</div>
+                    <div>{plantErrors.username}</div>
                     <br/>
                     <label>Password
                         <input
                             name="password"
                             type="password"
                             placeholder='Enter Password'
-                            value={login.password}
+                            value={plant.password}
                             onChange={onChange}
                             />
                     </label>
                     <br/>
-                    <div>{loginErrors.password}</div>
+                    <div>{plantErrors.password}</div>
                 
                     <br/>
                     
-                    <button disabled={disabled}>Login</button>
+                    <button disabled={disabled}>Register</button>
                 </form>        
                 
         </div>
