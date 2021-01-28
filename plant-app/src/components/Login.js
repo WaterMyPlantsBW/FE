@@ -5,13 +5,13 @@ import styled from 'styled-components'
 import * as yup from 'yup'
 
 
-const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
 
 //Schema for the shape of the form
 const schema = yup.object().shape({
     username: yup.string().required('Name is Required').min(2, 'Needs at least 2 characters)'),
     password: yup.string().required('Please Enter Password').min(6, 'Needs'),
-    phoneNumber: yup.string().matches(phoneRegExp, 'is not valid').nullable()
+    
 
 })
 
