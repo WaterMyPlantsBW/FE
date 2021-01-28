@@ -9,8 +9,8 @@ import * as yup from 'yup'
 
 //Schema for the shape of the form
 const schema = yup.object().shape({
-    username: yup.string().required('Name is Required').min(2, 'Needs at least 2 characters)'),
-    password: yup.string().required('Please Enter Password').min(6, 'Needs'),
+    nickname: yup.string().required('Name is Required'),
+    species: yup.string().required('Please Enter Species'),
     
 
 })
@@ -75,7 +75,7 @@ export default function PlantReg (){
         console.log('Login form submitted')
         e.preventDefault();
         
-        const plantComplete = { username: plant.username.trim(), password: plant.password}
+        const plantComplete = { username: plant.username.trim(), species: plant.species}
         
         setPlantDone([...plantDone, plantComplete])
         
@@ -96,32 +96,42 @@ export default function PlantReg (){
                     
                     <h2>Register Your Plant</h2>
                     <br/>
-                    <label>Username
+                    <label>Nickname
                         <input
-                            name="username"
+                            name="nickname"
                             type='text'
-                            placeholder='Enter Username'
-                            value={plant.username}
+                            placeholder='Enter Nickname'
+                            value={plant.nickname}
                             onChange={onChange}
                             />
                     </label>
                     <br/>
                     <div>{plantErrors.username}</div>
                     <br/>
-                    <label>Password
+                    <label>Species
                         <input
-                            name="password"
-                            type="password"
-                            placeholder='Enter Password'
-                            value={plant.password}
+                            name="species"
+                            type="species"
+                            placeholder='Enter Species'
+                            value={plant.species}
                             onChange={onChange}
                             />
                     </label>
                     <br/>
-                    <div>{plantErrors.password}</div>
+                    <div>{plantErrors.species}</div>
                 
                     <br/>
-                    
+                    <label>H20 Frequency
+                        <input
+                            name="H20Frequency"
+                            type="H20Frequency"
+                            placeholder='Enter H20Frequency'
+                            value={plant.H20Frequency}
+                            onChange={onChange}
+                            />
+                    </label>
+                    <br/>
+                    <div>{plantErrors.H20Frequency}</div>
                     <button disabled={disabled}>Register</button>
                 </form>        
                 
