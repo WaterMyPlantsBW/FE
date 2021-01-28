@@ -11,7 +11,9 @@ import * as yup from 'yup'
 const schema = yup.object().shape({
     nickname: yup.string().required('Name is Required'),
     species: yup.string().required('Please Enter Species'),
-    
+    H20Frequency: yup.string().required('Please Enter H20 Frequency'),
+    water: yup.string().required(),
+    image: yup.string().nullable(),
 
 })
 
@@ -24,7 +26,8 @@ export default function PlantReg (){
         nickname: '',
         species: '',
         H20Frequency: '',
-        image: ''
+        water: '',
+        image: '',
         
     })
 
@@ -36,23 +39,29 @@ export default function PlantReg (){
 
     //state to set errors for plant 
     const [plantErrors, setPlantErrors] = useState({
-        id: '',
+       
         nickname: '',
         species: '',
         H20Frequency: '',
-        image: ''
+        water: '',
+        image: '',
         
     })
 
     //function that validates errors based on the schema
-    const validate = (name, value) => {
+    const validate = e => {
 
-    yup.reach(schema, name)
-      .validate(value)
-      .then(() => setPlantErrors({...plantErrors, [name]: ''}))
-      .catch(err => setPlantErrors({...plantErrors, [name]: err.plantErrors[0]}))
+    yup.reach(schema, e.target.name)
+      .validate(e.target.value)
+      .then(() => setPlantErrors({...plantErrors, [e.target.name]: ''}))
+      .catch(err => 
+        setPlantErrors({...plantErrors, [e.target.name]: err.errors[0]}),
+        console.log()
+      )
+        
     }
- 
+    
+    
 
     useEffect(() =>{
         schema.isValid(plant).then(valid =>  setDisabled(!valid))
@@ -62,10 +71,10 @@ export default function PlantReg (){
     // Change function
     const onChange = e =>{
         
-        const { name, value } = e.target
-        setPlant({...plant, [name]: value})
+        // const { name, value } = e.target
+        setPlant({...plant, [e.target.name]: e.target.value})
         
-        // setPlantErrors(validate(plant));
+        validate(e);
 
         
     }
@@ -75,7 +84,7 @@ export default function PlantReg (){
         console.log('Login form submitted')
         e.preventDefault();
         
-        const plantComplete = { username: plant.username.trim(), species: plant.species}
+        const plantComplete = { username: plant.nickname.trim(), species: plant.species, H20Frequency: plant.H20Frequency, water: plant.water, image: plant.image}
         
         setPlantDone([...plantDone, plantComplete])
         
@@ -84,6 +93,7 @@ export default function PlantReg (){
             nickname: '',
             species: '',
             H20Frequency: '',
+            water: '',
             image: ''
             
         })
@@ -106,7 +116,9 @@ export default function PlantReg (){
                             />
                     </label>
                     <br/>
-                    <div>{plantErrors.username}</div>
+                    < div style={{color:'red'}}>
+                    {plantErrors.nickname.length > 0 ? <p>{plantErrors.nickname}</p> : null }
+                    </div>
                     <br/>
                     <label>Species
                         <input
@@ -118,8 +130,9 @@ export default function PlantReg (){
                             />
                     </label>
                     <br/>
-                    <div>{plantErrors.species}</div>
-                
+                    <div style={{color: 'red'}}>
+                    {plantErrors.species.length > 0 ? <p>{plantErrors.species}</p> : null }
+                    </div>
                     <br/>
                     <label>H20 Frequency
                         <input
@@ -131,8 +144,31 @@ export default function PlantReg (){
                             />
                     </label>
                     <br/>
-                    <div>{plantErrors.H20Frequency}</div>
-                    <button disabled={disabled}>Register</button>
+                    <div style={{color: 'red'}}>{plantErrors.H20Frequency}</div>
+                    <label>Water On
+                        <input
+                            name="water"
+                            type="water"
+                            placeholder='mm/dd/yyyy'
+                            value={plant.water}
+                            onChange={onChange}
+                            />
+                    </label>
+                    <br/>
+                    <div style={{color: 'red'}}>{plantErrors.water}</div>
+                    <label>Image
+                        <input
+                            name="image"
+                            type="image"
+                            alt="userImage"
+                            placeholder='Enter imageUrl'
+                            value={plant.image}
+                            onChange={onChange}
+                            />
+                    </label>
+                    <br/>
+                    <div style={{color : 'red'}}>{plantErrors.image}</div>
+                <button disabled={disabled}>Register</button>
                 </form>        
                 
         </div>
