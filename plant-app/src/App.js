@@ -1,7 +1,7 @@
 import './App.css';
-import Login from './components/Login';
 import Navbar from './components/Navbar';
 import { Switch, Route } from 'react-router-dom';
+import SignUp from './components/SignUp';
 
 function App() {
 	return (
@@ -9,7 +9,7 @@ function App() {
 			<Navbar />
 
 			<Switch>
-				<Route exact path="/login" component={Login} />
+				<Route exact path="/signup" component={SignUp} />
 				<Route exact path="/" component={null} />
 			</Switch>
 		</div>
