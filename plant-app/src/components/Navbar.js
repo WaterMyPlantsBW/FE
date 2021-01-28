@@ -14,7 +14,6 @@ const NavbarContainer = styled.div`
 `;
 
 const Ul = styled.ul`
-	width: 25%;
 	display: flex;
 	list-style: none;
 	justify-content: space-around;
@@ -24,31 +23,35 @@ const Ul = styled.ul`
 const NavItems = styled.li`
 	padding: 1rem;
 	margin-left: 0.5rem;
+	font-weight: bold;
 `;
 
 const LoginBtn = styled(NavItems)`
 	background: rgba(0, 0, 0, 0.2);
-
 	padding: 0.6rem 1rem;
 	border-radius: 10px;
 	margin-left: 1.5rem;
+	transition: all 0.2s ease-in-out;
+	font-weight: bold;
 
 	&:hover {
+		color: #0f084b;
 		background: #a0d2da;
 		box-shadow: 0px 7px 28px -5px rgba(0, 0, 0, 0.52);
-		transition: all 0.2s ease;
 		margin-bottom: 0.5rem;
 	}
 `;
 
 const SignUpBtn = styled(NavItems)`
 	background: #a0d2da;
+	color: #0f084b;
+	font-weight: bold;
 	padding: 0.6rem 1rem;
 	border-radius: 10px;
 	box-shadow: 0px 7px 28px -5px rgba(0, 0, 0, 0.52);
+	transition: all 0.2s ease-in-out;
 
 	&:hover {
-		transition: all 0.2s ease;
 		margin-bottom: 0.5rem;
 	}
 `;
