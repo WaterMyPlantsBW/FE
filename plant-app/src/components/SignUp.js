@@ -126,7 +126,7 @@ export default function SignUp (){
                     <br/>
                     <div>{signUp.phoneNumber}</div>
                     <br/>
-                    <button disabled={disabled}>Login</button>
+                    <button disabled={disabled}>Sign Up</button>
                 </form>        
                 
             </div>

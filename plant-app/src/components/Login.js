@@ -22,7 +22,7 @@ export default function Login (){
     const [login, setLogin] = useState({
         username: '',
         password:'',
-        phoneNumber:''
+        
     })
 
     // State for a completed login (can be rendered if needed)
@@ -35,7 +35,7 @@ export default function Login (){
     const [loginErrors, setLoginErrors] = useState({
         username: '',
         password:'',
-        phoneNumber:''
+        
     })
 
     //function that validates errors based on the schema
@@ -59,7 +59,7 @@ export default function Login (){
         const { name, value } = e.target
         setLogin({...login, [name]: value})
         
-        setLoginErrors(validate(login));
+        // setLoginErrors(validate(login));
 
         
     }
@@ -69,14 +69,14 @@ export default function Login (){
         console.log('Login form submitted')
         e.preventDefault();
         
-        const loginComplete = { username: login.username.trim(), password: login.password, phone: login.phoneNumber}
+        const loginComplete = { username: login.username.trim(), password: login.password}
         
         setLoginDone([...loginDone, loginComplete])
         
         setLogin({
             username: '',
             password:'',
-            phoneNumber:''
+            
         })
     }
 
@@ -111,21 +111,7 @@ export default function Login (){
                     <br/>
                     <div>{loginErrors.password}</div>
                     <br/>
-                    <label>Phone Number
-                        <input 
-                            type="tel" 
-                            id='phone' 
-                            name="phoneNumber"
-                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                            required
-                            placeholder='Enter Phone Number'
-                            value={login.phoneNumber}
-                            onChange={onChange}
-                            />    
-                    </label>
-                    <br/>
-                    <div>{loginErrors.phoneNumber}</div>
-                    <br/>
+            
                     <button disabled={disabled}>Login</button>
                 </form>        
                 
