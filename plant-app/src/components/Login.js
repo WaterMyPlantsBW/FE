@@ -13,22 +13,22 @@ const schema = yup.object().shape({
 	phoneNumber: yup.string().matches(phoneRegExp, 'is not valid').nullable()
 });
 
-export default function SignUp() {
+export default function Login() {
 	//State for login
-	const [signUp, setSignUp] = useState({
+	const [login, setLogin] = useState({
 		username: '',
 		password: '',
 		phoneNumber: ''
 	});
 
 	// State for a completed login (can be rendered if needed)
-	const [signUpDone, setSignUpDone] = useState([]);
+	const [loginDone, setLoginDone] = useState([]);
 
 	//state to disable login submit button
 	const [disabled, setDisabled] = useState(true);
 
 	//state to set errors for login
-	const [signUpErrors, setSignUpErrors] = useState({
+	const [loginErrors, setLoginErrors] = useState({
 		username: '',
 		password: '',
 		phoneNumber: ''
@@ -38,20 +38,20 @@ export default function SignUp() {
 	const validate = (name, value) => {
 		yup.reach(schema, name)
 			.validate(value)
-			.then(() => signUpErrors({ ...signUpErrors, [name]: '' }))
-			.catch(err => signUpErrors({ ...signUpErrors, [name]: err.signUpErrors[0] }));
+			.then(() => setLoginErrors({ ...loginErrors, [name]: '' }))
+			.catch(err => setLoginErrors({ ...loginErrors, [name]: err.loginErrors[0] }));
 	};
 
 	useEffect(() => {
-		schema.isValid(signUp).then(valid => setDisabled(!valid));
-	}, [signUp]);
+		schema.isValid(login).then(valid => setDisabled(!valid));
+	}, [login]);
 
 	// Change function
 	const onChange = e => {
 		const { name, value } = e.target;
-		setSignUp({ ...signUp, [name]: value });
+		setLogin({ ...login, [name]: value });
 
-		// setLoginErrors(validate(login));
+		setLoginErrors(validate(login));
 	};
 
 	//Submit function -
@@ -59,15 +59,11 @@ export default function SignUp() {
 		console.log('Login form submitted');
 		e.preventDefault();
 
-		const signUpComplete = {
-			username: signUp.username.trim(),
-			password: signUp.password,
-			phone: signUp.phoneNumber
-		};
+		const loginComplete = { username: login.username.trim(), password: login.password, phone: login.phoneNumber };
 
-		setSignUpDone([...signUpDone, signUpComplete]);
+		setLoginDone([...loginDone, loginComplete]);
 
-		setSignUp({
+		setLogin({
 			username: '',
 			password: '',
 			phoneNumber: ''
@@ -76,6 +72,7 @@ export default function SignUp() {
 
 	return (
 		<div>
+			<h1>Plantz?</h1>
 			<form onSubmit={onSubmit}>
 				<h2>Login</h2>
 				<br />
@@ -85,12 +82,12 @@ export default function SignUp() {
 						name="username"
 						type="text"
 						placeholder="Enter Username"
-						value={signUp.username}
+						value={login.username}
 						onChange={onChange}
 					/>
 				</label>
 				<br />
-				<div>{signUpErrors.username}</div>
+				<div>{loginErrors.username}</div>
 				<br />
 				<label>
 					Password
@@ -98,12 +95,12 @@ export default function SignUp() {
 						name="password"
 						type="password"
 						placeholder="Enter Password"
-						value={signUp.password}
+						value={login.password}
 						onChange={onChange}
 					/>
 				</label>
 				<br />
-				<div>{signUpErrors.password}</div>
+				<div>{loginErrors.password}</div>
 				<br />
 				<label>
 					Phone Number
@@ -114,12 +111,12 @@ export default function SignUp() {
 						pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
 						required
 						placeholder="Enter Phone Number"
-						value={signUp.phoneNumber}
+						value={login.phoneNumber}
 						onChange={onChange}
 					/>
 				</label>
 				<br />
-				<div>{signUp.phoneNumber}</div>
+				<div>{loginErrors.phoneNumber}</div>
 				<br />
 				<button disabled={disabled}>Login</button>
 			</form>
