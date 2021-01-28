@@ -16,23 +16,23 @@ const schema = yup.object().shape({
 })
 
 
-export default function Login (){
+export default function SignUp (){
 
     //State for login
-    const [login, setLogin] = useState({
+    const [signUp, setSignUp] = useState({
         username: '',
         password:'',
         phoneNumber:''
     })
 
     // State for a completed login (can be rendered if needed)
-    const [loginDone, setLoginDone ] = useState([])
+    const [signUpDone, setSignUpDone ] = useState([])
 
     //state to disable login submit button 
     const [disabled, setDisabled] = useState(true)
 
     //state to set errors for login 
-    const [loginErrors, setLoginErrors] = useState({
+    const [signUpErrors, setSignUpErrors] = useState({
         username: '',
         password:'',
         phoneNumber:''
@@ -43,21 +43,21 @@ export default function Login (){
 
     yup.reach(schema, name)
       .validate(value)
-      .then(() => setLoginErrors({...loginErrors, [name]: ''}))
-      .catch(err => setLoginErrors({...loginErrors, [name]: err.loginErrors[0]}))
+      .then(() => signUpErrors({...signUpErrors, [name]: ''}))
+      .catch(err => signUpErrors({...signUpErrors, [name]: err.signUpErrors[0]}))
     }
  
 
     useEffect(() =>{
-        schema.isValid(login).then(valid =>  setDisabled(!valid))
-    }, [login])
+        schema.isValid(signUp).then(valid =>  setDisabled(!valid))
+    }, [signUp])
 
     
     // Change function
     const onChange = e =>{
         
         const { name, value } = e.target
-        setLogin({...login, [name]: value})
+        setSignUp({...signUp, [name]: value})
         
         // setLoginErrors(validate(login));
 
@@ -69,11 +69,11 @@ export default function Login (){
         console.log('Login form submitted')
         e.preventDefault();
         
-        const loginComplete = { username: login.username.trim(), password: login.password, phone: login.phoneNumber}
+        const signUpComplete = { username: signUp.username.trim(), password: signUp.password, phone: signUp.phoneNumber}
         
-        setLoginDone([...loginDone, loginComplete])
+        setSignUpDone([...signUpDone, signUpComplete])
         
-        setLogin({
+        setSignUp({
             username: '',
             password:'',
             phoneNumber:''
@@ -92,24 +92,24 @@ export default function Login (){
                             name="username"
                             type='text'
                             placeholder='Enter Username'
-                            value={login.username}
+                            value={signUp.username}
                             onChange={onChange}
                             />
                     </label>
                     <br/>
-                    <div>{loginErrors.username}</div>
+                    <div>{signUpErrors.username}</div>
                     <br/>
                     <label>Password
                         <input
                             name="password"
                             type="password"
                             placeholder='Enter Password'
-                            value={login.password}
+                            value={signUp.password}
                             onChange={onChange}
                             />
                     </label>
                     <br/>
-                    <div>{loginErrors.password}</div>
+                    <div>{signUpErrors.password}</div>
                     <br/>
                     <label>Phone Number
                         <input 
@@ -119,12 +119,12 @@ export default function Login (){
                             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                             required
                             placeholder='Enter Phone Number'
-                            value={login.phoneNumber}
+                            value={signUp.phoneNumber}
                             onChange={onChange}
                             />    
                     </label>
                     <br/>
-                    <div>{loginErrors.phoneNumber}</div>
+                    <div>{signUp.phoneNumber}</div>
                     <br/>
                     <button disabled={disabled}>Login</button>
                 </form>        
