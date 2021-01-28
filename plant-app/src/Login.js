@@ -1,6 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import styled from 'styled-components'
+
+import * as yup from 'yup'
+
+
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
+//Schema for the shape of the form
+const schema = yup.object().shape({
+    username: yup.string().required('Name is Required').min(2, 'Needs at least 2 characters)'),
+    password: yup.string().required('Please Enter Password').min(6, 'Needs'),
+    phoneNumber: yup.string().matches(phoneRegExp, 'is not valid').nullable()
+
+})
 
 
 export default function Login (){
@@ -9,17 +22,45 @@ export default function Login (){
     const [login, setLogin] = useState({
         username: '',
         password:'',
-        phone:''
+        phoneNumber:''
     })
 
-    
+    // State for a completed login (can be rendered if needed)
     const [loginDone, setLoginDone ] = useState([])
+
+    //state to disable login submit button 
+    const [disabled, setDisabled] = useState(true)
+
+    //state to set errors for login 
+    const [loginErrors, setLoginErrors] = useState({
+        username: '',
+        password:'',
+        phoneNumber:''
+    })
+
+    //function that validates errors based on the schema
+    const validate = (name, value) => {
+
+    yup.reach(schema, name)
+      .validate(value)
+      .then(() => setLoginErrors({...loginErrors, [name]: ''}))
+      .catch(err => setLoginErrors({...loginErrors, [name]: err.loginErrors[0]}))
+    }
+ 
+
+    useEffect(() =>{
+        schema.isValid(login).then(valid =>  setDisabled(!valid))
+    }, [login])
+
     
     // Change function
     const onChange = e =>{
-
+        
         const { name, value } = e.target
         setLogin({...login, [name]: value})
+        
+        // validate(name, value);
+
         
     }
 
@@ -28,14 +69,14 @@ export default function Login (){
         console.log('Login form submitted')
         e.preventDefault();
         
-        const loginComplete = { username: login.username.trim(), password: login.password, phone: login.phone}
+        const loginComplete = { username: login.username.trim(), password: login.password, phone: login.phoneNumber}
         
         setLoginDone([...loginDone, loginComplete])
         
         setLogin({
             username: '',
             password:'',
-            phone:''
+            phoneNumber:''
         })
     }
 
@@ -52,8 +93,11 @@ export default function Login (){
                             type='text'
                             placeholder='Enter Username'
                             value={login.username}
-                            onChange={onChange}/>
+                            onChange={onChange}
+                            />
                     </label>
+                    <br/>
+                    <div>{loginErrors.username}</div>
                     <br/>
                     <label>Password
                         <input
@@ -61,22 +105,28 @@ export default function Login (){
                             type="password"
                             placeholder='Enter Password'
                             value={login.password}
-                            onChange={onChange}/>
+                            onChange={onChange}
+                            />
                     </label>
+                    <br/>
+                    <div>{loginErrors.password}</div>
                     <br/>
                     <label>Phone Number
                         <input 
                             type="tel" 
                             id='phone' 
-                            name="phone"
+                            name="phoneNumber"
                             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                             required
                             placeholder='Enter Phone Number'
-                            value={login.phone}
-                            onChange={onChange}/>    
+                            value={login.phoneNumber}
+                            onChange={onChange}
+                            />    
                     </label>
                     <br/>
-                    <button>Login</button>
+                    <div>{loginErrors.phoneNumber}</div>
+                    <br/>
+                    <button disabled={disabled}>Login</button>
                 </form>        
                 
         </div>
