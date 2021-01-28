@@ -59,7 +59,7 @@ export default function Login (){
         const { name, value } = e.target
         setLogin({...login, [name]: value})
         
-        setLoginErrors(validate(login));
+        // setLoginErrors(validate(login));
 
         
     }
@@ -81,8 +81,8 @@ export default function Login (){
     }
 
     return(
-        <div>
-            <h1>Plantz?</h1>
+            <div>
+            
                 <form onSubmit={onSubmit}>
                     
                     <h2>Login</h2>
@@ -129,6 +129,6 @@ export default function Login (){
                     <button disabled={disabled}>Login</button>
                 </form>        
                 
-        </div>
+            </div>
     )
 }
