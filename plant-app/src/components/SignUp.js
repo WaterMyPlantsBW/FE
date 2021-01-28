@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import * as yup from 'yup'
-
+import * as yup from 'yup';
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -59,7 +58,7 @@ export default function SignUp (){
         const { name, value } = e.target
         setSignUp({...signUp, [name]: value})
         
-        // setLoginErrors(validate(login));
+        setSignUpErrors(name, value)
 
         
     }
@@ -85,7 +84,7 @@ export default function SignUp (){
             
                 <form onSubmit={onSubmit}>
                     
-                    <h2>Login</h2>
+                    <h2>Sign Up</h2>
                     <br/>
                     <label>Username
                         <input
@@ -126,7 +125,7 @@ export default function SignUp (){
                     <br/>
                     <div>{signUp.phoneNumber}</div>
                     <br/>
-                    <button disabled={disabled}>Login</button>
+                    <button disabled={disabled}>Sign Up</button>
                 </form>        
                 
             </div>
