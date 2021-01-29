@@ -4,13 +4,39 @@ import styled from 'styled-components';
 
 import * as yup from 'yup';
 
-const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
+//Styling
+
+const SignUpContainer = styled.form`
+    text-align: center;
+    height: 100vh;
+    padding: 3em;
+    display: grid;
+    
+    
+    
+        
+`
+// const SignUpLeft = styled.div`
+//     text-align: left;
+//     align-self: center;
+//     padding: 1em;
+    
+
+// `
+// const SignUpRight = styled.div`
+//     text-align: right;
+//     align-self: center;
+//     padding: 1em;
+// `
+
+const phoneRegExp = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 
 //Schema for the shape of the form
 const schema = yup.object().shape({
-    username: yup.string().required('Name is Required').min(2, 'Needs at least 2 characters)'),
-    password: yup.string().required('Please Enter Password').min(6, 'Needs'),
-    phoneNumber: yup.string().matches(phoneRegExp, 'is not valid').nullable()
+    username: yup.string().required('Name is Required').min(2, 'Needs at least 2 characters'),
+    password: yup.string().required('Please Enter Password').min(6, 'Needs at least 6 characters'),
+    phoneNumber: yup.string().matches(phoneRegExp, 'not a valid number')
 
 })
 
@@ -38,12 +64,12 @@ export default function SignUp (){
     })
 
     //function that validates errors based on the schema
-    const validate = (name, value) => {
+    const validate = e => {
 
-    yup.reach(schema, name)
-      .validate(value)
-      .then(() => signUpErrors({...signUpErrors, [name]: ''}))
-      .catch(err => signUpErrors({...signUpErrors, [name]: err.signUpErrors[0]}))
+    yup.reach(schema, e.target.name)
+      .validate(e.target.value)
+      .then(() => setSignUpErrors({...signUpErrors, [e.target.name]: ''}))
+      .catch(err => setSignUpErrors({...signUpErrors, [e.target.name]: err.errors[0]}))
     }
  
 
@@ -55,10 +81,10 @@ export default function SignUp (){
     // Change function
     const onChange = e =>{
         
-        const { name, value } = e.target
-        setSignUp({...signUp, [name]: value})
+        // const { name, value } = e.target
+        setSignUp({...signUp, [e.target.name]: e.target.value})
         
-        setSignUpErrors(name, value)
+        validate(e);
 
         
     }
@@ -80,13 +106,18 @@ export default function SignUp (){
     }
 
     return(
-            <div>
             
-                <form onSubmit={onSubmit}>
+            
+                <SignUpContainer onSubmit={onSubmit}>
+
+                    <div>
+                        <div class="left">
+                            <h2>Sign Up</h2>
+                        </div>
                     
-                    <h2>Sign Up</h2>
-                    <br/>
-                    <label>Username
+                        <br/>
+                        <div class="right">
+                        <label>Username
                         <input
                             name="username"
                             type='text'
@@ -94,11 +125,11 @@ export default function SignUp (){
                             value={signUp.username}
                             onChange={onChange}
                             />
-                    </label>
-                    <br/>
-                    <div>{signUpErrors.username}</div>
-                    <br/>
-                    <label>Password
+                        </label>
+                        <br/>
+                        <div style={{color: 'red'}}>{signUpErrors.username}</div>
+                        <br/>
+                        <label>Password
                         <input
                             name="password"
                             type="password"
@@ -106,11 +137,11 @@ export default function SignUp (){
                             value={signUp.password}
                             onChange={onChange}
                             />
-                    </label>
-                    <br/>
-                    <div>{signUpErrors.password}</div>
-                    <br/>
-                    <label>Phone Number
+                        </label>
+                        <br/>
+                        <div style={{color: 'red'}}>{signUpErrors.password}</div>
+                        <br/>
+                        <label>Phone Number
                         <input 
                             type="tel" 
                             id='phone' 
@@ -121,13 +152,15 @@ export default function SignUp (){
                             value={signUp.phoneNumber}
                             onChange={onChange}
                             />    
-                    </label>
-                    <br/>
-                    <div>{signUp.phoneNumber}</div>
-                    <br/>
-                    <button disabled={disabled}>Sign Up</button>
-                </form>        
+                        </label>
+                            <br/>
+                            <div style={{color: 'red'}}>{signUpErrors.phoneNumber}</div>
+                            <br/>
+                            <button disabled={disabled}>Sign Up</button>
+                        </div>
+                    </div>
+                </SignUpContainer>        
                 
-            </div>
+            
     )
 }
