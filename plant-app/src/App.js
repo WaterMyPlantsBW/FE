@@ -1,14 +1,12 @@
 import './App.css';
-import Navbar from './components/Navbar';
 
-import PlantReg from './components/PlantReg'
+import Navbar from './components/Navbar';
 
 function App() {
 	return (
 		<div className="App">
 			<Navbar />
 			
-			<PlantReg/>
 		</div>
 	);
 }
