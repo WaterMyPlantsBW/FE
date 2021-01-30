@@ -1,121 +1,99 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import * as yup from 'yup';
 
-import styled from 'styled-components'
-
-import * as yup from 'yup'
-
-
-
+import { Container, Label, Input, Form, Button } from './SignUp';
 
 //Schema for the shape of the form
 const schema = yup.object().shape({
-    username: yup.string().required('Name is Required').min(2, 'Needs at least 2 characters)'),
-    password: yup.string().required('Please Enter Password').min(6, 'Needs'),
-    
+	username: yup.string().required('Name is Required').min(2, 'Needs at least 2 characters)'),
+	password: yup.string().required('Please Enter Password').min(6, 'Needs')
+});
 
-})
+export default function Login() {
+	//State for login
+	const [login, setLogin] = useState({
+		username: '',
+		password: ''
+	});
 
+	// State for a completed login (can be rendered if needed)
+	const [loginDone, setLoginDone] = useState([]);
 
-export default function Login (){
+	//state to disable login submit button
+	const [disabled, setDisabled] = useState(true);
 
-    //State for login
-    const [login, setLogin] = useState({
-        username: '',
-        password:'',
-        
-    })
+	//state to set errors for login
+	const [loginErrors, setLoginErrors] = useState({
+		username: '',
+		password: ''
+	});
 
-    // State for a completed login (can be rendered if needed)
-    const [loginDone, setLoginDone ] = useState([])
+	//function that validates errors based on the schema
+	const validate = (name, value) => {
+		yup.reach(schema, name)
+			.validate(value)
+			.then(() => setLoginErrors({ ...loginErrors, [name]: '' }))
+			.catch(err => setLoginErrors({ ...loginErrors, [name]: err.errors[0] }));
+	};
 
-    //state to disable login submit button 
-    const [disabled, setDisabled] = useState(true)
+	useEffect(() => {
+		schema.isValid(login).then(valid => setDisabled(!valid));
+	}, [login]);
 
-    //state to set errors for login 
-    const [loginErrors, setLoginErrors] = useState({
-        username: '',
-        password:'',
-        
-    })
+	// Change function
+	const onChange = e => {
+		const { name, value } = e.target;
+		setLogin({ ...login, [name]: value });
 
-    //function that validates errors based on the schema
-    const validate = (name, value) => {
+		// setLoginErrors(validate(login));
+	};
 
-    yup.reach(schema, name)
-      .validate(value)
-      .then(() => setLoginErrors({...loginErrors, [name]: ''}))
-      .catch(err => setLoginErrors({...loginErrors, [name]: err.loginErrors[0]}))
-    }
- 
+	//Submit function -
+	const onSubmit = e => {
+		console.log('Login form submitted');
+		e.preventDefault();
 
-    useEffect(() =>{
-        schema.isValid(login).then(valid =>  setDisabled(!valid))
-    }, [login])
+		const loginComplete = { username: login.username.trim(), password: login.password };
 
-    
-    // Change function
-    const onChange = e =>{
-        
-        const { name, value } = e.target
-        setLogin({...login, [name]: value})
-        
-        // setLoginErrors(validate(login));
+		setLoginDone([...loginDone, loginComplete]);
 
-        
-    }
+		setLogin({
+			username: '',
+			password: ''
+		});
+	};
 
-    //Submit function - 
-    const onSubmit = e => {
-        console.log('Login form submitted')
-        e.preventDefault();
-        
-        const loginComplete = { username: login.username.trim(), password: login.password}
-        
-        setLoginDone([...loginDone, loginComplete])
-        
-        setLogin({
-            username: '',
-            password:'',
-            
-        })
-    }
+	return (
+		<Container>
+			<Form onSubmit={onSubmit}>
+				<h2>Login</h2>
 
-    return(
-        <div>
-            
-                <form onSubmit={onSubmit}>
-                    
-                    <h2>Login</h2>
-                    <br/>
-                    <label>Username
-                        <input
-                            name="username"
-                            type='text'
-                            placeholder='Enter Username'
-                            value={login.username}
-                            onChange={onChange}
-                            />
-                    </label>
-                    <br/>
-                    <div>{loginErrors.username}</div>
-                    <br/>
-                    <label>Password
-                        <input
-                            name="password"
-                            type="password"
-                            placeholder='Enter Password'
-                            value={login.password}
-                            onChange={onChange}
-                            />
-                    </label>
-                    <br/>
-                    <div>{loginErrors.password}</div>
-                
-                    <br/>
-                    
-                    <button disabled={disabled}>Login</button>
-                </form>        
-                
-        </div>
-    )
+				<Label htmlFor="username">Username</Label>
+				<Input
+					id="username"
+					name="username"
+					type="text"
+					placeholder="Enter Username"
+					value={login.username}
+					onChange={onChange}
+				/>
+
+				<div>{loginErrors.username}</div>
+
+				<Label htmlFor="password">Password </Label>
+				<Input
+					id="passowrd"
+					name="password"
+					type="password"
+					placeholder="Enter Password"
+					value={login.password}
+					onChange={onChange}
+				/>
+
+				<div>{loginErrors.password}</div>
+
+				<Button disabled={disabled}>Login</Button>
+			</Form>
+		</Container>
+	);
 }

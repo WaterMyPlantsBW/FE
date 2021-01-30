@@ -1,25 +1,20 @@
 import './App.css';
 
 import Navbar from './components/Navbar';
-<<<<<<< HEAD
-=======
 import { Switch, Route } from 'react-router-dom';
 import SignUp from './components/SignUp';
->>>>>>> main
+import Login from './components/Login';
 
 function App() {
 	return (
 		<div className="App">
 			<Navbar />
-<<<<<<< HEAD
-			
-=======
 
 			<Switch>
 				<Route exact path="/signup" component={SignUp} />
+				<Route exact path="/login" component={Login} />
 				<Route exact path="/" component={null} />
 			</Switch>
->>>>>>> main
 		</div>
 	);
 }
