@@ -111,12 +111,12 @@ export default function SignUp (){
                 <SignUpContainer onSubmit={onSubmit}>
 
                     <div>
-                        <div class="left">
+                        <div>
                             <h2>Sign Up</h2>
                         </div>
                     
                         <br/>
-                        <div class="right">
+                        <div>
                         <label>Username
                         <input
                             name="username"
