@@ -126,6 +126,8 @@ export default function PlantReg (){
         })
     }
 
+    
+
     return(
         <PlantRegContainer>
             
@@ -195,7 +197,7 @@ export default function PlantReg (){
                         <label>Image
                             <input
                                 name="image"
-                                type="image"
+                                type="text"
                                 alt="userImage"
                                 placeholder='Enter imageUrl'
                                 value={plant.image}
@@ -212,5 +214,6 @@ export default function PlantReg (){
                 </form>        
                 
         </PlantRegContainer>
+      
     )
 }
