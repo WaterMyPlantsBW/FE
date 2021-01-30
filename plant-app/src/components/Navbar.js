@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 //styled components
 const NavbarContainer = styled.div`
@@ -15,39 +16,43 @@ const NavbarContainer = styled.div`
 const Ul = styled.ul`
 	display: flex;
 	list-style: none;
+	justify-content: space-around;
+	align-items: center;
 `;
 
 const NavItems = styled.li`
 	padding: 1rem;
 	margin-left: 0.5rem;
+	font-weight: bold;
 `;
 
 const LoginBtn = styled(NavItems)`
 	background: rgba(0, 0, 0, 0.2);
-	margin: auto 0.5rem;
 	padding: 0.6rem 1rem;
 	border-radius: 10px;
 	margin-left: 1.5rem;
+	transition: all 0.2s ease-in-out;
+	font-weight: bold;
 
 	&:hover {
+		color: #0f084b;
 		background: #a0d2da;
 		box-shadow: 0px 7px 28px -5px rgba(0, 0, 0, 0.52);
-		transition: all 0.2s ease;
-		margin-bottom: 0.2rem;
+		margin-bottom: 0.5rem;
 	}
 `;
 
 const SignUpBtn = styled(NavItems)`
 	background: #a0d2da;
-
-	margin: auto 0.5rem;
+	color: #0f084b;
+	font-weight: bold;
 	padding: 0.6rem 1rem;
 	border-radius: 10px;
 	box-shadow: 0px 7px 28px -5px rgba(0, 0, 0, 0.52);
+	transition: all 0.2s ease-in-out;
 
 	&:hover {
-		transition: all 3s ease;
-		margin-bottom: 0.2rem;
+		margin-bottom: 0.5rem;
 	}
 `;
 
@@ -56,9 +61,17 @@ function Navbar() {
 		<NavbarContainer>
 			<h1>Plantz?</h1>
 			<Ul>
-				<NavItems>Home</NavItems>
-				<LoginBtn>Log in</LoginBtn>
-				<SignUpBtn>Sign up</SignUpBtn>
+				<Link style={{ color: '#fff' }} to="/">
+					<NavItems>Home</NavItems>
+				</Link>
+
+				<Link style={{ color: '#fff' }} to="/login">
+					<LoginBtn>Log in</LoginBtn>
+				</Link>
+
+				<Link style={{ color: '#fff' }} to="/signup">
+					<SignUpBtn>Sign Up</SignUpBtn>
+				</Link>
 			</Ul>
 		</NavbarContainer>
 	);
