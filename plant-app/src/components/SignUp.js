@@ -4,7 +4,27 @@ import styled from 'styled-components';
 
 import * as yup from 'yup';
 
-const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+//Styling
+
+const SignUpContainer = styled.form`
+	text-align: center;
+	height: 100vh;
+	padding: 3em;
+	display: grid;
+`;
+// const SignUpLeft = styled.div`
+//     text-align: left;
+//     align-self: center;
+//     padding: 1em;
+
+// `
+// const SignUpRight = styled.div`
+//     text-align: right;
+//     align-self: center;
+//     padding: 1em;
+// `
+
+const phoneRegExp = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 
 //Schema for the shape of the form
 const schema = yup.object().shape({
