@@ -53,7 +53,7 @@ const phoneRegExp = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 //Schema for the shape of the form
 const schema = yup.object().shape({
 	username: yup.string().required('Name is Required').min(2, 'Needs at least 2 characters)'),
-	password: yup.string().required('Please Enter Password').min(6, 'Needs'),
+	password: yup.string().required('Please Enter Password').min(6, 'Needs at least 6 characters'),
 	phoneNumber: yup.string().matches(phoneRegExp, 'is not valid').nullable()
 });
 
@@ -79,11 +79,11 @@ export default function SignUp() {
 	});
 
 	//function that validates errors based on the schema
-	const validate = (name, value) => {
-		yup.reach(schema, name)
-			.validate(value)
-			.then(() => signUpErrors({ ...signUpErrors, [name]: '' }))
-			.catch(err => signUpErrors({ ...signUpErrors, [name]: err.errors[0] }));
+	const validate = e => {
+		yup.reach(schema, e.target.name)
+			.validate(e.target.value)
+			.then(() => setSignUpErrors({ ...signUpErrors, [e.target.name]: '' }))
+			.catch(err => setSignUpErrors({ ...signUpErrors, [e.target.name]: err.errors[0] }));
 	};
 
 	useEffect(() => {
@@ -92,10 +92,10 @@ export default function SignUp() {
 
 	// Change function
 	const onChange = e => {
-		const { name, value } = e.target;
-		setSignUp({ ...signUp, [name]: value });
+		// const { name, value } = e.target;
+		setSignUp({ ...signUp, [e.target.name]: e.target.value });
 
-		// setLoginErrors(validate(login));
+		validate(e);
 	};
 
 	//Submit function -
@@ -133,7 +133,7 @@ export default function SignUp() {
 					onChange={onChange}
 				/>
 
-				<div>{signUpErrors.username}</div>
+				<div style={{color: 'red'}}>{signUpErrors.username}</div>
 
 				<Label htmlFor="password">Password </Label>
 				<Input
@@ -145,7 +145,7 @@ export default function SignUp() {
 					onChange={onChange}
 				/>
 
-				<div>{signUpErrors.password}</div>
+				<div style={{color: 'red'}}>{signUpErrors.password}</div>
 
 				<Label htmlFor="phone">Phone Number </Label>
 				<Input

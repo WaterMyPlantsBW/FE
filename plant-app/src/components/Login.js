@@ -6,7 +6,7 @@ import { Container, Label, Input, Form, Button } from './SignUp';
 //Schema for the shape of the form
 const schema = yup.object().shape({
 	username: yup.string().required('Name is Required').min(2, 'Needs at least 2 characters)'),
-	password: yup.string().required('Please Enter Password').min(6, 'Needs')
+	password: yup.string().required('Please Enter Password').min(6, 'Needs at least 6 characters')
 });
 
 export default function Login() {
@@ -29,11 +29,11 @@ export default function Login() {
 	});
 
 	//function that validates errors based on the schema
-	const validate = (name, value) => {
-		yup.reach(schema, name)
-			.validate(value)
-			.then(() => setLoginErrors({ ...loginErrors, [name]: '' }))
-			.catch(err => setLoginErrors({ ...loginErrors, [name]: err.errors[0] }));
+	const validate = e => {
+		yup.reach(schema, e.target.name)
+			.validate(e.target.value)
+			.then(() => setLoginErrors({ ...loginErrors, [e.target.name]: '' }))
+			.catch(err => setLoginErrors({ ...loginErrors, [e.target.name]: err.errors[0] }));
 	};
 
 	useEffect(() => {
@@ -42,10 +42,10 @@ export default function Login() {
 
 	// Change function
 	const onChange = e => {
-		const { name, value } = e.target;
-		setLogin({ ...login, [name]: value });
+		// const { name, value } = e.target;
+		setLogin({ ...login, [e.target.name]: e.target.value });
 
-		// setLoginErrors(validate(login));
+		validate(e);
 	};
 
 	//Submit function -
@@ -78,7 +78,7 @@ export default function Login() {
 					onChange={onChange}
 				/>
 
-				<div>{loginErrors.username}</div>
+				<div style={{color: 'red'}}>{loginErrors.username}</div>
 
 				<Label htmlFor="password">Password </Label>
 				<Input
@@ -90,7 +90,7 @@ export default function Login() {
 					onChange={onChange}
 				/>
 
-				<div>{loginErrors.password}</div>
+				<div style={{color: 'red'}}>{loginErrors.password}</div>
 
 				<Button disabled={disabled}>Login</Button>
 			</Form>
