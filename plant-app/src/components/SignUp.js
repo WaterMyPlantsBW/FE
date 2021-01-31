@@ -7,14 +7,13 @@ import * as yup from 'yup';
 //Styling
 
 export const Container = styled.div`
-	text-align: center;
 	width: 300px;
-	padding: 3em;
 	width: 100%;
 	height: 50vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin-top: 2rem;
 `;
 export const Form = styled.form`
 	background: #fff;
