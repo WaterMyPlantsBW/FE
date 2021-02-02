@@ -7,14 +7,13 @@ import * as yup from 'yup';
 //Styling
 
 export const Container = styled.div`
-	width: 300px;
 	width: 100%;
-	height: 50vh;
+	height: 90vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 2rem;
 `;
+
 export const Form = styled.form`
 	background: #fff;
 	padding: 2rem;
@@ -133,7 +132,7 @@ export default function SignUp() {
 					onChange={onChange}
 				/>
 
-				<div style={{color: 'red'}}>{signUpErrors.username}</div>
+				<div style={{ color: 'red' }}>{signUpErrors.username}</div>
 
 				<Label htmlFor="password">Password </Label>
 				<Input
@@ -145,7 +144,7 @@ export default function SignUp() {
 					onChange={onChange}
 				/>
 
-				<div style={{color: 'red'}}>{signUpErrors.password}</div>
+				<div style={{ color: 'red' }}>{signUpErrors.password}</div>
 
 				<Label htmlFor="phone">Phone Number </Label>
 				<Input
