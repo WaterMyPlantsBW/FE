@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
+import { connect } from 'react-redux';
+import axios from 'axios';
 
 import { Container, Label, Input, Form, Button } from './SignUp';
+import { userId } from '../actions';
 
 //Schema for the shape of the form
 const schema = yup.object().shape({
@@ -9,7 +12,7 @@ const schema = yup.object().shape({
 	password: yup.string().required('Please Enter Password').min(6, 'Needs at least 6 characters')
 });
 
-export default function Login() {
+function Login(props) {
 	//State for login
 	const [login, setLogin] = useState({
 		username: '',
@@ -17,7 +20,11 @@ export default function Login() {
 	});
 
 	// State for a completed login (can be rendered if needed)
-	const [loginDone, setLoginDone] = useState([]);
+	const [user, setUser] = useState();
+
+	useEffect(() => {
+		userID(user);
+	}, []);
 
 	//state to disable login submit button
 	const [disabled, setDisabled] = useState(true);
@@ -53,9 +60,14 @@ export default function Login() {
 		console.log('Login form submitted');
 		e.preventDefault();
 
-		const loginComplete = { username: login.username.trim(), password: login.password };
-
-		setLoginDone([...loginDone, loginComplete]);
+		axios
+			.post('https://water-my-plants-team-no132.herokuapp.com/auth/login', login)
+			.then(res => {
+				setUser(res.data.userID);
+				localStorage.setItem('token', res.data.token);
+				props.history.push('/plants');
+			})
+			.catch(err => console.log(err));
 
 		setLogin({
 			username: '',
@@ -78,7 +90,7 @@ export default function Login() {
 					onChange={onChange}
 				/>
 
-				<div style={{color: 'red'}}>{loginErrors.username}</div>
+				<div style={{ color: 'red' }}>{loginErrors.username}</div>
 
 				<Label htmlFor="password">Password </Label>
 				<Input
@@ -90,10 +102,14 @@ export default function Login() {
 					onChange={onChange}
 				/>
 
-				<div style={{color: 'red'}}>{loginErrors.password}</div>
+				<div style={{ color: 'red' }}>{loginErrors.password}</div>
 
 				<Button disabled={disabled}>Login</Button>
 			</Form>
 		</Container>
 	);
 }
+
+const mapDispatchToProps = { userID };
+
+export default connect(null, mapDispatchToProps)(Login);

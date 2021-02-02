@@ -1,10 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react';
 
-export default function PlantList () {
-
-    <div>
-        <h1>My Plants</h1>
-
-
-    </div>
+export default function PlantList() {
+	return (
+		<div>
+			<h1 style={{ color: '#fff' }}>My Plants</h1>
+		</div>
+	);
 }
