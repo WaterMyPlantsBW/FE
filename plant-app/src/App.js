@@ -1,10 +1,11 @@
 import './App.css';
-
+import React, { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import { Switch, Route } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 
+import axios from 'axios';
 function App() {
 	return (
 		<div className="App">
