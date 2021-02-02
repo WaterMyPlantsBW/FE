@@ -1,38 +1,12 @@
 import React, { useState, useEffect } from 'react'
 
-import styled from 'styled-components'
+
 
 import * as yup from 'yup'
 
-//Styling
-
-const PlantRegContainer = styled.div`
-    margin: 0 auto;
-    text-align: center;
-    width: 70%;
-    
+import { Container, Label, Input, Form, Button } from './SignUp';
 
 
-`
-const Input = styled.div`
-    width: 100%;
-    margin: 1em 0;
-`
-
-const StyledButton = styled.button`
-    width: calc(25% - 1em);
-    height: 50%;
-    background: #a0d2da;
-    color: #0f084b;
-    border-radius: 10px;
-    font-weight: bold;
-    box-shadow: 0px 7px 28px -5px rgba(0, 0, 0, 0.52);
-	transition: all 0.2s ease-in-out;
-    
-    &:hover {
-		margin-bottom: 0.5rem;
-	}
-`
 
 //Schema for the shape of the form
 const schema = yup.object().shape({
@@ -129,73 +103,73 @@ export default function PlantReg (){
     
 
     return(
-        <PlantRegContainer>
+        <Container>
             
-                <form onSubmit={onSubmit}>
+                <Form onSubmit={onSubmit}>
                     <div>
                         <h2>Register Your Plant</h2>
                     </div>
                     
                     <div>
-                    <Input>   
-                        <label>Nickname
-                            <input
+                    <div>   
+                        <Label>Nickname
+                            <Input
                                 name="nickname"
                                 type='text'
                                 placeholder='Enter Nickname'
                                 value={plant.nickname}
                                 onChange={onChange}
                                 />
-                        </label>
+                        </Label>
                     
                         <div style={{color:'red'}}>
                             {plantErrors.nickname.length > 0 ? <p>{plantErrors.nickname}</p> : null }
                         </div>
-                    </Input> 
-                    <Input>
-                        <label>Species
-                            <input
+                    </div> 
+                    <div>
+                        <Label>Species
+                            <Input
                                 name="species"
                                 type="species"
                                 placeholder='Enter Species'
                                 value={plant.species}
                                 onChange={onChange}
                                 />
-                        </label>
+                        </Label>
                     
                         <div style={{color: 'red'}}>
                             {plantErrors.species.length > 0 ? <p>{plantErrors.species}</p> : null }
                         </div>
-                    </Input>
-                    <Input>
-                        <label>H20 Frequency
-                            <input
+                    </div>
+                    <div>
+                        <Label>H20 Frequency
+                            <Input
                                 name="H20Frequency"
                                 type="H20Frequency"
                                 placeholder='Enter H20Frequency'
                                 value={plant.H20Frequency}
                                 onChange={onChange}
                                 />
-                        </label>
+                        </Label>
                     
                         <div style={{color: 'red'}}>{plantErrors.H20Frequency}</div>
-                    </Input>
-                    <Input>
-                        <label>Water On
-                            <input
+                    </div>
+                    <div>
+                        <Label>Water On
+                            <Input
                                 name="water"
                                 type="water"
                                 placeholder='mm/dd/yyyy'
                                 value={plant.water}
                                 onChange={onChange}
                                 />
-                        </label>
+                        </Label>
                     
                         <div style={{color: 'red'}}>{plantErrors.water}</div>
-                    </Input>
-                    <Input>
-                        <label>Image
-                            <input
+                    </div>
+                    <div>
+                        <Label>Image
+                            <Input
                                 name="image"
                                 type="text"
                                 alt="userImage"
@@ -203,17 +177,17 @@ export default function PlantReg (){
                                 value={plant.image}
                                 onChange={onChange}
                                                 />
-                            </label>
+                            </Label>
                     
                         <div style={{color : 'red'}}>{plantErrors.image}</div>
-                    </Input>
+                    </div>
                     
-                        <StyledButton disabled={disabled}>Register</StyledButton>
+                        <Button disabled={disabled}>Register</Button>
                     
                 </div>
-                </form>        
+                </Form>        
                 
-        </PlantRegContainer>
+        </Container>
       
     )
 }
