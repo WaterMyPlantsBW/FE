@@ -6,6 +6,7 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import PrivateRoute from './components/PrivateRoute';
 import PlantList from './components/PlantList';
+// import SignUp from './components/SignUp';
 
 function App() {
 	return (
@@ -14,6 +15,8 @@ function App() {
 
 			<Switch>
 				<PrivateRoute exact path="/plants" component={PlantList} />
+			
+			
 				<Route exact path="/signup" component={SignUp} />
 				<Route exact path="/login" component={Login} />
 				<Route exact path="/" component={null} />

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchPlants } from '../actions';
-import decodedToken from '../utils/decodedToken';
+// import decodedToken from '../utils/decodedToken';
 
 import styled from 'styled-components'
 
@@ -38,3 +38,4 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = { fetchPlants };
 export default connect(mapStateToProps, mapDispatchToProps)(PlantList);
+
