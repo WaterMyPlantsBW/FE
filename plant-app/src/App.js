@@ -1,17 +1,25 @@
 import './App.css';
 import React from 'react';
 import Navbar from './components/Navbar';
+
+import Home from './components/Home'
+
 import { Switch, Route } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import PrivateRoute from './components/PrivateRoute';
 import PlantList from './components/PlantList';
+
 // import SignUp from './components/SignUp';
+
 
 function App() {
 	return (
 		<div className="App">
 			<Navbar />
+
+			<Home />
+
 
 			<Switch>
 				<PrivateRoute exact path="/plants" component={PlantList} />
@@ -21,6 +29,7 @@ function App() {
 				<Route exact path="/login" component={Login} />
 				<Route exact path="/" component={null} />
 			</Switch>
+
 		</div>
 	);
 }
