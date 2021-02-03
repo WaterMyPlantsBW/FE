@@ -1,19 +1,40 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { fetchPlants } from '../actions';
+import decodedToken from '../utils/decodedToken';
 
-export default function PlantList () {
+import styled from 'styled-components'
 
-    <div>
+
+
+
+
+function PlantList({ user_id, fetchPlants }) {
+	useEffect(() => {
+		fetchPlants(user_id);
+	}, []);
+	return (
         <div>
-            <h1>My Plants</h1>
-            <button>+</button>
-        </div>    
-        
-        <div>
-             
+		    <div>
+			    <h1 style={{ color: '#fff' }}>My Plants</h1>
+            </div>
+
+            <div>
+
+            </div>
+
+
+
         </div>
 
-
-
-
-    </div>
+       
+	);
 }
+const mapStateToProps = state => {
+	console.log('state: ', state);
+	return {
+		user_id: state.user_id
+	};
+};
+const mapDispatchToProps = { fetchPlants };
+export default connect(mapStateToProps, mapDispatchToProps)(PlantList);
