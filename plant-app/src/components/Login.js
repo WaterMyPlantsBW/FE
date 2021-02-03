@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
+import { connect } from 'react-redux';
+
+import { loginUser } from '../actions/index';
 
 import { Container, Label, Input, Form, Button } from './SignUp';
 
@@ -9,7 +12,8 @@ const schema = yup.object().shape({
 	password: yup.string().required('Please Enter Password').min(6, 'Needs at least 6 characters')
 });
 
-export default function Login() {
+// Route passes history as props and loginUser passed as props through redux(connect);
+function Login({ loginUser, history }) {
 	//State for login
 	const [login, setLogin] = useState({
 		username: '',
@@ -17,7 +21,7 @@ export default function Login() {
 	});
 
 	// State for a completed login (can be rendered if needed)
-	const [loginDone, setLoginDone] = useState([]);
+	// const [user, setUser] = useState();
 
 	//state to disable login submit button
 	const [disabled, setDisabled] = useState(true);
@@ -47,15 +51,12 @@ export default function Login() {
 
 		validate(e);
 	};
-
 	//Submit function -
 	const onSubmit = e => {
-		console.log('Login form submitted');
 		e.preventDefault();
+		console.log('Login form submitted');
 
-		const loginComplete = { username: login.username.trim(), password: login.password };
-
-		setLoginDone([...loginDone, loginComplete]);
+		loginUser(login, history);
 
 		setLogin({
 			username: '',
@@ -78,7 +79,7 @@ export default function Login() {
 					onChange={onChange}
 				/>
 
-				<div style={{color: 'red'}}>{loginErrors.username}</div>
+				<div style={{ color: 'red' }}>{loginErrors.username}</div>
 
 				<Label htmlFor="password">Password </Label>
 				<Input
@@ -90,10 +91,20 @@ export default function Login() {
 					onChange={onChange}
 				/>
 
-				<div style={{color: 'red'}}>{loginErrors.password}</div>
+				<div style={{ color: 'red' }}>{loginErrors.password}</div>
 
 				<Button disabled={disabled}>Login</Button>
 			</Form>
 		</Container>
 	);
 }
+
+const mapStateToProps = state => {
+	return {
+		state
+	};
+};
+
+const mapDispatchToProps = { loginUser };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
