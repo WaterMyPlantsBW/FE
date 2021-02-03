@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import { connect } from 'react-redux';
-import axios from 'axios';
+
+import { loginUser } from '../actions/index';
 
 import { Container, Label, Input, Form, Button } from './SignUp';
-import { userId } from '../actions';
 
 //Schema for the shape of the form
 const schema = yup.object().shape({
@@ -12,7 +12,8 @@ const schema = yup.object().shape({
 	password: yup.string().required('Please Enter Password').min(6, 'Needs at least 6 characters')
 });
 
-function Login(props) {
+// Route passes history as props and loginUser passed as props through redux(connect);
+function Login({ loginUser, history }) {
 	//State for login
 	const [login, setLogin] = useState({
 		username: '',
@@ -20,11 +21,7 @@ function Login(props) {
 	});
 
 	// State for a completed login (can be rendered if needed)
-	const [user, setUser] = useState();
-
-	useEffect(() => {
-		userID(user);
-	}, []);
+	// const [user, setUser] = useState();
 
 	//state to disable login submit button
 	const [disabled, setDisabled] = useState(true);
@@ -54,20 +51,12 @@ function Login(props) {
 
 		validate(e);
 	};
-
 	//Submit function -
 	const onSubmit = e => {
-		console.log('Login form submitted');
 		e.preventDefault();
+		console.log('Login form submitted');
 
-		axios
-			.post('https://water-my-plants-team-no132.herokuapp.com/auth/login', login)
-			.then(res => {
-				setUser(res.data.userID);
-				localStorage.setItem('token', res.data.token);
-				props.history.push('/plants');
-			})
-			.catch(err => console.log(err));
+		loginUser(login, history);
 
 		setLogin({
 			username: '',
@@ -110,6 +99,12 @@ function Login(props) {
 	);
 }
 
-const mapDispatchToProps = { userID };
+const mapStateToProps = state => {
+	return {
+		state
+	};
+};
 
-export default connect(null, mapDispatchToProps)(Login);
+const mapDispatchToProps = { loginUser };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

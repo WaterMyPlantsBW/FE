@@ -1,12 +1,11 @@
 import './App.css';
-import React, { useEffect } from 'react';
+import React from 'react';
 import Navbar from './components/Navbar';
 import { Switch, Route } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import PrivateRoute from './components/PrivateRoute';
 import PlantList from './components/PlantList';
-import axios from 'axios';
 
 function App() {
 	return (
