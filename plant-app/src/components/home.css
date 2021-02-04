@@ -1,0 +1,42 @@
+.Home-Container{
+    width: 80%;
+    height: 80vh;
+    background: url("https://cottagelife.com/wp-content/uploads/2018/06/shutterstock_609086588-1200x784.jpg" );
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* display: table; */
+    align-items: center;
+    margin-left: 160px;
+    margin-top: 30px;
+    border-radius: 20px;
+}
+.Header-container{
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.Header-container h1{
+    color:#26408b;
+    font-size: 50px;
+    font-weight: bold;
+    font-family: unset;
+}
+.Header-container p{
+    color:#1249df;
+    font-size: 18px;
+    font-style: italic;
+   
+}
+.Header-container button{
+    color: #fff;
+    background:#26408b;
+    padding: 18px 38px;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    margin-top: 40px;
+}
