@@ -45,7 +45,6 @@ const appReducer = (state = intialState, action) => {
 			};
 
 		case LOGIN_SUCCESS:
-			console.log('id: ', action.payload);
 			return {
 				...state,
 				isFetchingUser: false,

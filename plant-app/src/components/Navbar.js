@@ -36,7 +36,7 @@ const LoginBtn = styled(NavItems)`
 
 	&:hover {
 		color: #0f084b;
-		background: #a0d2da;
+		background: rgb(160, 210, 218);
 		box-shadow: 0px 7px 28px -5px rgba(0, 0, 0, 0.52);
 		margin-bottom: 0.5rem;
 	}
