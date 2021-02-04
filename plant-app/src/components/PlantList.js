@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { fetchPlants } from '../actions';
-<<<<<<< HEAD
-// import decodedToken from '../utils/decodedToken';
-
-import styled from 'styled-components'
-
-
-
-
-
-function PlantList({ user_id, fetchPlants }) {
-=======
 import styled from 'styled-components';
 import PlantReg from './PlantReg';
+
+import PlantCard from './PlantCard'
 
 const Top = styled.div`
 	width: 80%;
@@ -115,30 +106,14 @@ const Cover = styled.div`
 function PlantList({ fetchPlants, plants }) {
 	const [show, setShow] = useState(false);
 
->>>>>>> c024bb2640a4624ac45e8c2834a9c62361005b22
 	useEffect(() => {
 		const id = JSON.parse(localStorage.getItem('userID'));
 		fetchPlants(id);
 	}, []);
-<<<<<<< HEAD
-	return (
-        <div>
-		    <div>
-			    <h1 style={{ color: '#fff' }}>My Plants</h1>
-            </div>
-
-            <div>
-
-            </div>
-
-
-
-        </div>
-
-       
-=======
 
 	console.log(plants);
+
+
 
 	return (
 		<>
@@ -162,12 +137,11 @@ function PlantList({ fetchPlants, plants }) {
 			<PlantsContainer>
 				{plants.map(plant => (
 					<h1 key={plant.id} style={{ color: '#fff' }}>
-						{plant.nickname}
+						<PlantCard plant={plant}/>
 					</h1>
 				))}
 			</PlantsContainer>
 		</>
->>>>>>> c024bb2640a4624ac45e8c2834a9c62361005b22
 	);
 }
 const mapStateToProps = state => {

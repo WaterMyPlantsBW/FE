@@ -69,7 +69,7 @@ export default function PlantReg({ style, setShow }) {
 
 	//Submit function -
 	const onSubmit = e => {
-		console.log('Login form submitted');
+		console.log('Plant Registration Complete');
 		e.preventDefault();
 
 		const plantComplete = {
@@ -79,7 +79,7 @@ export default function PlantReg({ style, setShow }) {
 			water: plant.water,
 			image: plant.image
 		};
-
+		
 		setPlantDone([...plantDone, plantComplete]);
 
 		setPlant({
