@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
-
+import {connect} from 'react-redux'
+import {signUpUser}  from "../actions"
 import * as yup from 'yup';
 
 //Styling
@@ -56,17 +57,16 @@ const schema = yup.object().shape({
 	phoneNumber: yup.string().matches(phoneRegExp, 'is not valid').nullable()
 });
 
-export default function SignUp() {
+ function SignUp({signUpUser}) {
 	//State for login
 	const [signUp, setSignUp] = useState({
+	
 		username: '',
 		password: '',
 		phoneNumber: ''
 	});
 
-	// State for a completed login (can be rendered if needed)
-	const [signUpDone, setSignUpDone] = useState([]);
-
+	
 	//state to disable login submit button
 	const [disabled, setDisabled] = useState(true);
 
@@ -101,15 +101,10 @@ export default function SignUp() {
 	const onSubmit = e => {
 		console.log('Login form submitted');
 		e.preventDefault();
-
-		const signUpComplete = {
-			username: signUp.username.trim(),
-			password: signUp.password,
-			phone: signUp.phoneNumber
-		};
-
-		setSignUpDone([...signUpDone, signUpComplete]);
-
+		signUpUser(signUp)
+		
+		
+		
 		setSignUp({
 			username: '',
 			password: '',
@@ -157,9 +152,16 @@ export default function SignUp() {
 					value={signUp.phoneNumber}
 					onChange={onChange}
 				/>
-
 				<Button disabled={disabled}>Sign Up</Button>
 			</Form>
 		</Container>
 	);
 }
+
+const mapStateToProps = state =>{
+	return {
+		state
+	};
+}
+const mapDispatchToProps = { signUpUser };
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

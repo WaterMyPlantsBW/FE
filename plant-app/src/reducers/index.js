@@ -4,7 +4,7 @@ import {
 	FETCH_DATA_ERROR,
 	LOGIN_START,
 	LOGIN_SUCCESS,
-	LOGIN_ERROR
+	LOGIN_ERROR,
 } from '../actions';
 
 const intialState = {
@@ -57,6 +57,7 @@ const appReducer = (state = intialState, action) => {
 				...state,
 				isFethingUser: false
 			};
+		
 
 		default: {
 			return state;

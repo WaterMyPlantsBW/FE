@@ -3,8 +3,6 @@ import React from 'react';
 import Navbar from './components/Navbar';
 
 import Home from './components/Home';
-
-import Home from './components/Home';
 import { Switch, Route } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import Login from './components/Login';

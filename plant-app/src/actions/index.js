@@ -1,12 +1,11 @@
 import axios from 'axios';
-
 import axiosWithAuth from '../utils/axiosWithAuth';
-// import { history } from '../index';
 
 //plant data
 export const FETCH_DATA_START = 'FETCH_DATA_START';
 export const FETCH_DATA_SUCCES = 'FETCH_DATA_SUCCESS';
 export const FETCH_DATA_ERROR = 'FETCH_DATA_ERROR';
+export const FETCH_DATA_SIGNUP = 'FETCH_DATA_SIGNUP';
 
 //LOGIN
 export const LOGIN_START = 'LOGIN_START';
@@ -19,6 +18,8 @@ export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const PLANT_REG_START = 'PLANT_REG_START';
 export const PLANT_REG_SUCCESS = 'PLANT_REG_SUCCESS';
 export const PLANT_REG_ERROR = 'PLANT_REG_ERROR';
+export const SIGNUP_USER = 'SIGNUP_USER';
+export const USER_ID = 'USER_ID';
 
 export const fetchPlants = id => dispatch => {
 	dispatch({ type: FETCH_DATA_START });
@@ -48,5 +49,16 @@ export const addNewPlant = (newPlant, id) => dispatch => {
 	axiosWithAuth()
 		.post(`/users/${id}/plants`, newPlant)
 		.then(res => console.log(res))
+		.catch(err => console.log(err));
+};
+export const signUpUser = signUp => dispatch => {
+	console.log({ signUp });
+	dispatch({ type: SIGNUP_USER });
+
+	axios
+		.post('https://water-my-plants-team-no132.herokuapp.com/auth/register', signUp)
+		.then(res => {
+			console.log(res);
+		})
 		.catch(err => console.log(err));
 };

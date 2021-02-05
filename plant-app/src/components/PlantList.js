@@ -132,12 +132,12 @@ function PlantList({ fetchPlants, plants }) {
 				</ButtonContainer>
 			</Top>
 			<PlantsContainer>
-				{plants.map(plant => (
-					<h1 key={plant.id} style={{ color: '#fff' }}>
-						<PlantCard plant={plant} />
-						{plant.image}
-					</h1>
-				))}
+				{plants.length > 0 &&
+					plants.map(plant => (
+						<h1 key={plant.id} style={{ color: '#fff' }}>
+							<PlantCard plant={plant} />
+						</h1>
+					))}
 			</PlantsContainer>
 		</>
 	);
