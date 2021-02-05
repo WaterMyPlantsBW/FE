@@ -133,7 +133,7 @@ function PlantList({ fetchPlants, plants }) {
 			<PlantsContainer>
 				{plants.map(plant => (
 					<h1 key={plant.id} style={{ color: '#fff' }}>
-						{plant.nickname}
+						{plant.image}
 					</h1>
 				))}
 			</PlantsContainer>
