@@ -13,12 +13,10 @@ export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const USER_ID = 'USER_ID';
 
 export const fetchPlants = id => dispatch => {
-	// console.log(id);
 	dispatch({ type: FETCH_DATA_START });
-	// console.log(axiosWithAuth());
 	axiosWithAuth()
 		.get(`/users/${id}/plants`)
-		.then(res => console.log(res))
+		.then(res => dispatch({ type: FETCH_DATA_SUCCES, payload: res.data }))
 		.catch(err => console.log(err));
 };
 
@@ -30,8 +28,8 @@ export const loginUser = (login, history) => dispatch => {
 		.then(res => {
 			console.log(res);
 			localStorage.setItem('token', res.data.token);
+			localStorage.setItem('userID', res.data.userID);
 			history.push('plants');
-			dispatch({ type: LOGIN_SUCCESS, payload: res.data.userID });
 		})
 		.catch(err => dispatch({ type: LOGIN_ERROR }));
 };
