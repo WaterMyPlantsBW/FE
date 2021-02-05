@@ -143,6 +143,7 @@ function PlantList({ fetchPlants, plants }) {
 				{plants.map(plant => (
 					<h1 key={plant.id} style={{ color: '#fff' }}>
 						<PlantCard plant={plant} />
+						{plant.image}
 					</h1>
 				))}
 			</PlantsContainer>

@@ -10,9 +10,6 @@ import Login from './components/Login';
 import PrivateRoute from './components/PrivateRoute';
 import PlantList from './components/PlantList';
 
-// import SignUp from './components/SignUp';
-
-
 function App() {
 	return (
 		<div className="App">
@@ -29,7 +26,6 @@ function App() {
 				<Route exact path="/login" component={Login} />
 				<Route exact path="/" component={Home} />
 			</Switch>
-
 		</div>
 	);
 }
