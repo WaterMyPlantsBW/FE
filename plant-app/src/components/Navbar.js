@@ -72,6 +72,7 @@ function Navbar() {
 				<Link style={{ color: '#fff' }} to="/signup">
 					<SignUpBtn>Sign Up</SignUpBtn>
 				</Link>
+				
 			</Ul>
 		</NavbarContainer>
 	);

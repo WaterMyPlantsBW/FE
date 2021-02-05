@@ -9,6 +9,7 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import PrivateRoute from './components/PrivateRoute';
 import PlantList from './components/PlantList';
+import Settings from './components/Settings'
 
 function App() {
 	return (
@@ -16,12 +17,12 @@ function App() {
 			<Navbar />
 
 			
-
+			
 
 			<Switch>
 				<PrivateRoute exact path="/plants" component={PlantList} />
 			
-			
+				<Route exact path="/settings" component={Settings} />
 				<Route exact path="/signup" component={SignUp} />
 				<Route exact path="/login" component={Login} />
 				<Route exact path="/" component={Home} />
