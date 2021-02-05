@@ -165,7 +165,7 @@ export default function PlantReg({ style, setShow }) {
 						Image
 						<Input
 							name="image"
-							type="text"
+							type="image"
 							alt="userImage"
 							placeholder="Enter imageUrl"
 							value={plant.image}
