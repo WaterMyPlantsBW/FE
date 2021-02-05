@@ -131,7 +131,7 @@ function PlantList({ fetchPlants, plants }) {
 				</ButtonContainer>
 			</Top>
 			<PlantsContainer>
-				{plants.map(plant => (
+				{plants.length > 0 && plants.map(plant => (
 					<h1 key={plant.id} style={{ color: '#fff' }}>
 						{plant.nickname}
 					</h1>

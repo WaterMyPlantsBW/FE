@@ -5,7 +5,6 @@ import {
 	LOGIN_START,
 	LOGIN_SUCCESS,
 	LOGIN_ERROR,
-	SIGNUP_USER
 } from '../actions';
 
 const intialState = {
@@ -58,12 +57,7 @@ const appReducer = (state = intialState, action) => {
 				...state,
 				isFethingUser: false
 			};
-		case SIGNUP_USER:
-			const users = state.users.concat(action.payload)
-			return {
-				...state,users
-				
-			}
+		
 
 		default: {
 			return state;

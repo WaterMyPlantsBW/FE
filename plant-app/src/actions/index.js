@@ -1,4 +1,5 @@
 import axios from 'axios';
+import SignUp from '../components/SignUp';
 import axiosWithAuth from '../utils/axiosWithAuth';
 // import { history } from '../index';
 export const FETCH_DATA_START = 'FETCH_DATA_START';
@@ -35,15 +36,10 @@ export const loginUser = (login, history) => dispatch => {
 };
 
 export const signUpUser = (signUp) => dispatch => {
+	console.log({signUp})
 	dispatch({ type: SIGNUP_USER });
 
-	axios
-		.post('https://water-my-plants-team-no132.herokuapp.com/auth/signUp', {
-			username: "",
-			password: "",
-			phonenumber: ""
-	
-		})
+	axios.post('https://water-my-plants-team-no132.herokuapp.com/auth/register',signUp )
 		.then(res=>{console.log(res)})
 		.catch(err => console.log(err));
 };
