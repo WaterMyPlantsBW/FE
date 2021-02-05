@@ -32,7 +32,7 @@ const CardItem = styled.div`
 const Button = styled.button`
 background: rgba(0, 0, 0, 0.2);
 padding: 0.6rem 1rem;
-border-radius: 10px;
+border-radius: 2px;
 
 transition: all 0.2s ease-in-out;
 font-weight: bold;
