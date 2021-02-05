@@ -1,6 +1,7 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
 
 const CardContainer = styled.div`
 	text-align: center;
@@ -44,22 +45,34 @@ const Button = styled.button`
 		bottom: 0.5%;
 	}
 `;
-export default function PlantCard(props) {
+function PlantCard({ plants }) {
 	//Slice of state that contians plant data from PlantReg.js
-	const { plant } = props;
+
+	const params = useParams();
+
+	const plant = plants.find(plant => plant.id === Number(params.id));
 
 	return (
 		<CardContainer>
-			<CardH1>{plant.nickname}</CardH1>
-
 			<div>
 				<CardImage src={plant.image} alt={plant.species} />
 			</div>
-			<CardItem>Species: {plant.species}</CardItem>
-			<CardItem>Watering Frequency: {plant.H20Frequency}</CardItem>
-			<CardItem>Watering Begins On: {plant.water}</CardItem>
-			<Button>Edit</Button>
-			<Button>Delete</Button>
+			<div>
+				<CardH1>{plant.nickname}</CardH1>
+				<CardItem>Species: {plant.species}</CardItem>
+				<CardItem>Watering Frequency: {plant.H20Frequency}</CardItem>
+				<CardItem>Watering Begins On: {plant.water}</CardItem>
+				<Button>Edit</Button>
+				<Button>Delete</Button>
+			</div>
 		</CardContainer>
 	);
 }
+
+const mapStateToProps = state => {
+	return {
+		plants: state.plants
+	};
+};
+
+export default connect(mapStateToProps)(PlantCard);

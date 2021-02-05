@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchPlants } from '../actions';
 import styled from 'styled-components';
 import PlantReg from './PlantReg';
-
-import PlantCard from './PlantCard';
 
 const Top = styled.div`
 	width: 80%;
@@ -141,10 +140,12 @@ function PlantList({ fetchPlants, plants }) {
 			<PlantsContainer>
 				{plants.length > 0 &&
 					plants.map(plant => (
-						<div>
-							<h1>{plant.nickname}</h1>
-							<img height="100px" width="100px" src={plant.image} />
-						</div>
+						<Link style={{ color: '#fff' }} to={`plants/${plant.id}`}>
+							<div>
+								<h1>{plant.nickname}</h1>
+								<img height="100px" width="100px" src={plant.image} />
+							</div>
+						</Link>
 					))}
 			</PlantsContainer>
 		</>

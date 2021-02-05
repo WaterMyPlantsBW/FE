@@ -158,7 +158,7 @@ function PlantReg({ style, setShow, addNewPlant, user_id }) {
 						Image
 						<Input
 							name="image"
-							type="text"
+							type="image"
 							alt="userImage"
 							placeholder="Enter imageUrl"
 							value={plant.image}
