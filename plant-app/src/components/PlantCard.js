@@ -4,11 +4,9 @@ import styled from 'styled-components'
 
 const CardContainer = styled.div`
     text-align: center;
-    width: 50%;
-    border-radius: 1rem;
-    margin: 0 auto;
+    width: 35%;
+    border-radius: 1rem; 
 	background: #fff;
-	padding: 1em;
     align-items: center;
     color: black;
     box-shadow: 0px 7px 28px -5px rgba(0, 0, 0, 0.52);
@@ -16,9 +14,7 @@ const CardContainer = styled.div`
 const CardH1 = styled.div`
    padding: 1em;
    margin: 0 auto;
-   font-size: 40px;
-  
-
+   font-size: 30px;
 `
 
 const CardImage = styled.img`
@@ -30,7 +26,24 @@ const CardImage = styled.img`
 const CardItem = styled.div`
     padding; 4rem;
     margin; 1em;
-    font-size: 30px;
+    font-size: 20px;
+`
+
+const Button = styled.button`
+background: rgba(0, 0, 0, 0.2);
+padding: 0.6rem 1rem;
+border-radius: 10px;
+
+transition: all 0.2s ease-in-out;
+font-weight: bold;
+
+&:hover {
+    color: #0f084b;
+    background: rgb(160, 210, 218);
+    box-shadow: 0px 7px 28px -5px rgba(0, 0, 0, 0.52);
+    margin-bottom: 0.5rem;
+}
+
 `
 export default function PlantCard (props){
 
@@ -45,9 +58,11 @@ export default function PlantCard (props){
                 <div>
                     <CardImage src={plant.image} alt={plant.species} />
                 </div>
-                <CardItem>Species:{plant.species}</CardItem>
-                <CardItem>Watering Frequency:{plant.H20Frequency}</CardItem>
-                <CardItem>Watering Begins On:{plant.water}</CardItem>
+                <CardItem>Species: {plant.species}</CardItem>
+                <CardItem>Watering Frequency: {plant.H20Frequency}</CardItem>
+                <CardItem>Watering Begins On: {plant.water}</CardItem>
+                <Button>Edit</Button>
+                <Button>Delete</Button>
             
         </CardContainer>
         

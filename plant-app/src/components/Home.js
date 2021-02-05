@@ -10,7 +10,7 @@ import "./home.css"
 // 	margin: 0 auto;
 // 	align-items: center;
 	
-// `;
+// // `;
 // const Title = styled.h1`
 // 	align-items: center;
 // 	text-align: center;
@@ -42,11 +42,7 @@ function Home() {
             <p>With an easy to use interface for creating a plant watering schedule tailored to each individual plant, Water MyPlants will remind users when it's time to feed that foliage and quench your plants' thirst.</p>
 			<button type="button">Let's Start</button>
 			</section>
-			{/* <section className="Image"> */}
-				 {/* To design the optimum landscape solution, install it with quality materials and workmanship in a timly fashion and maintain it in top condition!  */}
-            {/* <img src ="https://cottagelife.com/wp-content/uploads/2018/06/shutterstock_609086588-1200x784.jpg" alt="Water the plant"/> */}
-			{/* </section> */}
-			{/* <button>Start here</button> */}
+			
 			
 
 		</div>

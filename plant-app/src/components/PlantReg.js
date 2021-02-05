@@ -151,8 +151,8 @@ export default function PlantReg({ style, setShow }) {
 						Water On
 						<Input
 							name="water"
-							type="water"
-							placeholder="mm/dd/yyyy"
+							type="date"
+							placeholder="yyyy-mm-dd"
 							value={plant.water}
 							onChange={onChange}
 						/>
