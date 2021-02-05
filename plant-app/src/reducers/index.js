@@ -11,7 +11,7 @@ const intialState = {
 	isFetchingData: false,
 	isFetchingUser: false,
 	plants: [],
-	user_id: '',
+	user_id: localStorage.getItem('userID'),
 	error: ''
 };
 

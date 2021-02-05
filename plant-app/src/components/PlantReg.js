@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import * as yup from 'yup';
+import { connect } from 'react-redux';
 
 import { Label, Input, Form, Button } from './SignUp';
+import { addNewPlant } from '../actions/index';
 
 const Close = styled.div`
 	position: absolute;
@@ -21,19 +23,18 @@ const schema = yup.object().shape({
 	image: yup.string().nullable()
 });
 
-export default function PlantReg({ style, setShow }) {
+function PlantReg({ style, setShow, addNewPlant, user_id }) {
+	//id
+
 	//State for plant
 	const [plant, setPlant] = useState({
-		id: '',
+		user_id: user_id,
 		nickname: '',
 		species: '',
 		H20Frequency: '',
 		water: '',
 		image: ''
 	});
-
-	// State for a completed plant (can be rendered if needed)
-	const [plantDone, setPlantDone] = useState([]);
 
 	//state to disable plant submit button
 	const [disabled, setDisabled] = useState(true);
@@ -72,15 +73,7 @@ export default function PlantReg({ style, setShow }) {
 		console.log('Plant Registration Complete');
 		e.preventDefault();
 
-		const plantComplete = {
-			username: plant.nickname.trim(),
-			species: plant.species,
-			H20Frequency: plant.H20Frequency,
-			water: plant.water,
-			image: plant.image
-		};
-		
-		setPlantDone([...plantDone, plantComplete]);
+		addNewPlant(plant, user_id);
 
 		setPlant({
 			id: '',
@@ -151,7 +144,7 @@ export default function PlantReg({ style, setShow }) {
 						Water On
 						<Input
 							name="water"
-							type="water"
+							type="date"
 							placeholder="mm/dd/yyyy"
 							value={plant.water}
 							onChange={onChange}
@@ -181,3 +174,13 @@ export default function PlantReg({ style, setShow }) {
 		</Form>
 	);
 }
+
+const mapStateTopProps = state => {
+	return {
+		user_id: state.user_id
+	};
+};
+
+const mapDispatchToProps = { addNewPlant };
+
+export default connect(mapStateTopProps, mapDispatchToProps)(PlantReg);
