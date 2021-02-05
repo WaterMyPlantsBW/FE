@@ -8,6 +8,7 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import PrivateRoute from './components/PrivateRoute';
 import PlantList from './components/PlantList';
+import PlantCard from './components/PlantCard';
 
 // import SignUp from './components/SignUp';
 
@@ -19,6 +20,7 @@ function App() {
 			<Switch>
 				<PrivateRoute exact path="/plants" component={PlantList} />
 
+				<Route exact path="/plants/:id" component={PlantCard} />
 				<Route exact path="/signup" component={SignUp} />
 				<Route exact path="/login" component={Login} />
 				<Route exact path="/" component={Home} />

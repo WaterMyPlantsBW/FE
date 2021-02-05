@@ -25,6 +25,10 @@ const Button = styled.button`
 	outline: none;
 	cursor: pointer;
 	box-shadow: 0px 7px 28px -5px rgba(0, 0, 0, 0.52);
+
+	@media only screen and (max-width: 480px) {
+		width: 100%;
+	}
 `;
 
 const ButtonContainer = styled.div`
@@ -48,6 +52,9 @@ const ButtonContainer = styled.div`
 const PlantsContainer = styled.div`
 	width: 80%;
 	margin: 1rem auto;
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
 	background: rgba(255, 255, 255, 0.1);
 	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 	backdrop-filter: blur(3.5px);
@@ -134,9 +141,10 @@ function PlantList({ fetchPlants, plants }) {
 			<PlantsContainer>
 				{plants.length > 0 &&
 					plants.map(plant => (
-						<h1 key={plant.id} style={{ color: '#fff' }}>
-							<PlantCard plant={plant} />
-						</h1>
+						<div>
+							<h1>{plant.nickname}</h1>
+							<img height="100px" width="100px" src={plant.image} />
+						</div>
 					))}
 			</PlantsContainer>
 		</>

@@ -28,12 +28,12 @@ function PlantReg({ style, setShow, addNewPlant, user_id }) {
 
 	//State for plant
 	const [plant, setPlant] = useState({
-		user_id: user_id,
 		nickname: '',
 		species: '',
 		H20Frequency: '',
-		water: '',
-		image: ''
+		image: '',
+		user_id: user_id,
+		water: ''
 	});
 
 	//state to disable plant submit button
@@ -114,7 +114,7 @@ function PlantReg({ style, setShow, addNewPlant, user_id }) {
 						Species
 						<Input
 							name="species"
-							type="species"
+							type="text"
 							placeholder="Enter Species"
 							value={plant.species}
 							onChange={onChange}
@@ -130,7 +130,7 @@ function PlantReg({ style, setShow, addNewPlant, user_id }) {
 						H20 Frequency
 						<Input
 							name="H20Frequency"
-							type="H20Frequency"
+							type="text"
 							placeholder="Enter H20Frequency"
 							value={plant.H20Frequency}
 							onChange={onChange}
@@ -144,8 +144,8 @@ function PlantReg({ style, setShow, addNewPlant, user_id }) {
 						Water On
 						<Input
 							name="water"
-							type="date"
-							placeholder="mm/dd/yyyy"
+							type="text"
+							placeholder="yyyy-mm-dd"
 							value={plant.water}
 							onChange={onChange}
 						/>
