@@ -4,7 +4,7 @@ import { fetchPlants } from '../actions';
 import styled from 'styled-components';
 import PlantReg from './PlantReg';
 
-import PlantCard from './PlantCard'
+import PlantCard from './PlantCard';
 
 const Top = styled.div`
 	width: 80%;
@@ -120,8 +120,6 @@ function PlantList({ fetchPlants, plants }) {
 
 	console.log(plants);
 
-
-
 	return (
 		<>
 			{/* div cover transparent */}
@@ -144,7 +142,7 @@ function PlantList({ fetchPlants, plants }) {
 			<PlantsContainer>
 				{plants.map(plant => (
 					<h1 key={plant.id} style={{ color: '#fff' }}>
-						<PlantCard plant={plant}/>
+						<PlantCard plant={plant} />
 					</h1>
 				))}
 			</PlantsContainer>
@@ -158,4 +156,3 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = { fetchPlants };
 export default connect(mapStateToProps, mapDispatchToProps)(PlantList);
-
