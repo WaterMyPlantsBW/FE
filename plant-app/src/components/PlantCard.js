@@ -5,14 +5,15 @@ import { useParams } from 'react-router-dom';
 
 const CardContainer = styled.div`
 	text-align: center;
-	width: 25%;
+	width: 65%;
 	border-radius: 1rem;
 	background: #fff;
 	color: black;
 	box-shadow: 0px 7px 28px -5px rgba(0, 0, 0, 0.52);
 	padding: 1.5rem;
-	margin: 1.5rem;
+	margin: 0 auto;
 `;
+
 const CardH1 = styled.div`
 	padding: 1em;
 	margin: 0 auto;

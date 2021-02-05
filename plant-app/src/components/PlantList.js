@@ -51,6 +51,7 @@ const ButtonContainer = styled.div`
 const PlantsContainer = styled.div`
 	width: 80%;
 	margin: 1rem auto;
+	padding: 1rem;
 	display: flex;
 	justify-content: space-evenly;
 	flex-wrap: wrap;
@@ -108,6 +109,16 @@ const Cover = styled.div`
 	z-index: 2;
 `;
 
+
+const PreCardContainer = styled.div`
+	padding: 1.5rem;
+	margin: 1.4.rem;
+	text-align: center;
+	background-color: #fff;
+	color: black;
+	border-radius: 1.5rem;
+	box-shadow: 0px 7px 28px -5px rgba(0, 0, 0, 0.52);
+`
 function PlantList({ fetchPlants, plants }) {
 	const [show, setShow] = useState(false);
 
@@ -141,10 +152,10 @@ function PlantList({ fetchPlants, plants }) {
 				{plants.length > 0 &&
 					plants.map(plant => (
 						<Link style={{ color: '#fff' }} to={`plants/${plant.id}`}>
-							<div>
+							<PreCardContainer>
 								<h1>{plant.nickname}</h1>
-								<img height="100px" width="100px" src={plant.image} />
-							</div>
+								<img height="100px" width="100px" src={plant.image} alt="plantImage" />
+							</PreCardContainer>
 						</Link>
 					))}
 			</PlantsContainer>
