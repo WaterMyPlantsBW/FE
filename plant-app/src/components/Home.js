@@ -14,7 +14,7 @@ function Home(props) {
 				<button
 					type="button"
 					onClick={() => {
-						props.history.push('plants');
+						props.history.push('login');
 					}}
 				>
 					Let's Start

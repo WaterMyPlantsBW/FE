@@ -6,7 +6,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     align-items: center;
-    margin-left: 160px;
+    margin: 0 auto;
     margin-top: 30px;
     border-radius: 20px;
 }
