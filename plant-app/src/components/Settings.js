@@ -70,29 +70,29 @@ function Settings({ user_id, updateUserInfo }) {
 					<h2>Update Your Information</h2>
 				</div>
 
-				<Label htmlFor="newPassword">
-					New Password
+				<Label htmlFor="newPassword">New Password</Label>
 					<Input
+						id="newPassword"
 						name="newPassword"
 						type="text"
 						placeholder="Enter New Password"
 						value={update.newPassword}
 						onChange={onChange}
 					/>
-				</Label>
+				
 
 				<div style={{ color: 'red' }}></div>
 
-				<Label htmlFor="newPhoneNumber">
-					New Phone Number
+				<Label htmlFor="newPhoneNumber">New Phone Number</Label>
 					<Input
+						id="newPhoneNumber"
 						name="newPhoneNumber"
 						type="text"
 						placeholder="Enter New Phone Number"
 						value={update.newPhoneNumber}
 						onChange={onChange}
 					/>
-				</Label>
+				
 
 				<Button disabled={disabled}>Update</Button>
 			</Form>
