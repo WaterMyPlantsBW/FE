@@ -17,10 +17,10 @@ const Close = styled.div`
 //Schema for the shape of the form
 const schema = yup.object().shape({
 	nickname: yup.string().required('Name is Required'),
-	species: yup.string().required('Please Enter Species'),
+	species: yup.string(),
 	H20Frequency: yup.string().required('Please Enter H20 Frequency'),
 	water: yup.string().required(),
-	image: yup.string().nullable()
+	image: yup.string()
 });
 
 function PlantReg({ style, setShow, addNewPlant, user_id }) {
@@ -70,10 +70,11 @@ function PlantReg({ style, setShow, addNewPlant, user_id }) {
 
 	//Submit function -
 	const onSubmit = e => {
-		console.log('Plant Registration Complete');
 		e.preventDefault();
+		console.log('Plant Registration Complete');
 
 		addNewPlant(plant, user_id);
+		setShow(false);
 
 		setPlant({
 			id: '',
@@ -144,7 +145,7 @@ function PlantReg({ style, setShow, addNewPlant, user_id }) {
 						Water On
 						<Input
 							name="water"
-							type="text"
+							type="date"
 							placeholder="yyyy-mm-dd"
 							value={plant.water}
 							onChange={onChange}
@@ -158,8 +159,7 @@ function PlantReg({ style, setShow, addNewPlant, user_id }) {
 						Image
 						<Input
 							name="image"
-							type="image"
-							alt="userImage"
+							type="text"
 							placeholder="Enter imageUrl"
 							value={plant.image}
 							onChange={onChange}

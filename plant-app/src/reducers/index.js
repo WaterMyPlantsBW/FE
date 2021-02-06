@@ -4,14 +4,14 @@ import {
 	FETCH_DATA_ERROR,
 	LOGIN_START,
 	LOGIN_SUCCESS,
-	LOGIN_ERROR,
+	LOGIN_ERROR
 } from '../actions';
 
 const intialState = {
 	isFetchingData: false,
 	isFetchingUser: false,
 	plants: [],
-	user_id: localStorage.getItem('userID'),
+	user_id: JSON.parse(localStorage.getItem('userID')),
 	error: ''
 };
 
@@ -57,7 +57,6 @@ const appReducer = (state = intialState, action) => {
 				...state,
 				isFethingUser: false
 			};
-		
 
 		default: {
 			return state;

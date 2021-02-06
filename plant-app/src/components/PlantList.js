@@ -109,7 +109,6 @@ const Cover = styled.div`
 	z-index: 2;
 `;
 
-
 const PreCardContainer = styled.div`
 	padding: 1.5rem;
 	margin: 1.4.rem;
@@ -118,16 +117,15 @@ const PreCardContainer = styled.div`
 	color: black;
 	border-radius: 1.5rem;
 	box-shadow: 0px 7px 28px -5px rgba(0, 0, 0, 0.52);
-`
-function PlantList({ fetchPlants, plants }) {
+`;
+function PlantList({ fetchPlants, plants, user_id }) {
 	const [show, setShow] = useState(false);
 
 	useEffect(() => {
-		const id = JSON.parse(localStorage.getItem('userID'));
-		fetchPlants(id);
+		fetchPlants(user_id);
 	}, []);
 
-	console.log(plants);
+	// console.log(user_id);
 
 	return (
 		<>
@@ -151,7 +149,7 @@ function PlantList({ fetchPlants, plants }) {
 			<PlantsContainer>
 				{plants.length > 0 &&
 					plants.map(plant => (
-						<Link style={{ color: '#fff' }} to={`plants/${plant.id}`}>
+						<Link key={plant.id} style={{ color: '#fff' }} to={`plants/${plant.id}`}>
 							<PreCardContainer>
 								<h1>{plant.nickname}</h1>
 								<img height="100px" width="100px" src={plant.image} alt="plantImage" />
@@ -164,7 +162,8 @@ function PlantList({ fetchPlants, plants }) {
 }
 const mapStateToProps = state => {
 	return {
-		plants: state.plants
+		plants: state.plants,
+		user_id: state.user_id
 	};
 };
 const mapDispatchToProps = { fetchPlants };

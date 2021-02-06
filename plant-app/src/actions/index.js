@@ -44,7 +44,7 @@ export const loginUser = (login, history) => dispatch => {
 			console.log(res);
 			localStorage.setItem('token', res.data.token);
 			localStorage.setItem('userID', res.data.userID);
-			dispatch({ type: LOGIN_SUCCESS, payload: res.data.userID });
+			dispatch({ type: LOGIN_SUCCESS, payload: JSON.parse(localStorage.getItem('userID')) });
 			history.push('plants');
 		})
 		.catch(err => dispatch({ type: LOGIN_ERROR }));
@@ -53,15 +53,16 @@ export const loginUser = (login, history) => dispatch => {
 //add new plant
 export const addNewPlant = (newPlant, id) => dispatch => {
 	dispatch({ type: PLANT_REG_START });
+
+	// return console.log(newPlant, id);
 	axiosWithAuth()
-		.post(`/users/${id}/plants`, newPlant)
+		.post(`users/${id}/plants`, newPlant)
 		.then(res => console.log(res))
 		.catch(err => console.log(err));
 };
 
 //sign up user
 export const signUpUser = signUp => dispatch => {
-	console.log({ signUp });
 	dispatch({ type: SIGNUP_USER });
 
 	axios
