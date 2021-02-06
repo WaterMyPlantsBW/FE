@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import { connect } from 'react-redux';
 
-import { loginUser } from '../actions/index';
+import { loginUser, userLoggedIn } from '../actions/index';
 
 import { Container, Label, Input, Form, Button } from './SignUp';
 
