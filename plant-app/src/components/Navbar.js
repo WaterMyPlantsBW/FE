@@ -79,7 +79,9 @@ function Navbar() {
 				<Link style={{ color: '#fff' }} to="/">
 					<NavItems>Home</NavItems>
 				</Link>
-
+				<Link style={{ color: '#fff' }} to="/plants">
+					<NavItems>Plants</NavItems>
+				</Link>
 				<Link style={{ color: '#fff' }} to="/login">
 					<LoginBtn>Log in</LoginBtn>
 				</Link>
