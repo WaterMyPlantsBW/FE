@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
+import { deletePlant } from "../actions/index"
 
 const CardContainer = styled.div`
 	text-align: center;
@@ -46,9 +47,9 @@ const Button = styled.button`
 		bottom: 0.5%;
 	}
 `;
-function PlantCard({ plants }) {
+function PlantCard({ plants, history }) {
 	//Slice of state that contians plant data from PlantReg.js
-
+//console.log(history)
 	const params = useParams();
 
 	const plant = plants.find(plant => plant.id === Number(params.id));
@@ -56,7 +57,8 @@ function PlantCard({ plants }) {
 	return (
 		<CardContainer>
 			<div>
-				<CardImage src={plant.image} alt={plant.species} />
+				{plants.image ? <CardImage src={plant.image} alt={plant.species} /> : <p>No Picture yet</p>}
+				
 			</div>
 			<div>
 				<CardH1>{plant.nickname}</CardH1>
@@ -64,7 +66,7 @@ function PlantCard({ plants }) {
 				<CardItem>Watering Frequency: {plant.H20Frequency}</CardItem>
 				<CardItem>Watering Begins On: {plant.water}</CardItem>
 				<Button>Edit</Button>
-				<Button>Delete</Button>
+				<Button onClick={() => deletePlant(params.id, history)}>Delete</Button>
 			</div>
 		</CardContainer>
 	);
@@ -75,5 +77,6 @@ const mapStateToProps = state => {
 		plants: state.plants
 	};
 };
+const mapDispatchToProps = {deletePlant}
 
-export default connect(mapStateToProps)(PlantCard);
+export default connect(mapStateToProps,mapDispatchToProps)(PlantCard);

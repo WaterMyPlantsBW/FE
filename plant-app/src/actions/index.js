@@ -25,6 +25,11 @@ export const USER_UPDATE_START = 'USER_UPTATE_START';
 export const USER_UPDATE_SUCCESS = 'USER_UPTATE_SUCCESS';
 export const USER_UPDATE_ERROR = 'USER_UPTATE_ERROR';
 
+//delete plant
+export const DELETE_ERROR = "DELETE_PLANT_ERROR";
+export const DELETE_START = "DELETE_PLANT_START";
+export const DELETE_SUCCESS = "DELETE_PLANT_SUCCESS";
+
 // fetch plants once user is logged in
 export const fetchPlants = id => dispatch => {
 	dispatch({ type: FETCH_DATA_START });
@@ -56,9 +61,15 @@ export const addNewPlant = (newPlant, id) => dispatch => {
 
 	// return console.log(newPlant, id);
 	axiosWithAuth()
-		.post(`users/${id}/plants`, newPlant)
-		.then(res => console.log(res))
-		.catch(err => console.log(err));
+		.post(`https://water-my-plants-team-no132.herokuapp.com/users/${id}/plants`, newPlant)
+		.then(res => {
+			console.log(res);
+		dispatch({type: PLANT_REG_SUCCESS, payload: res.data})
+		})
+		.catch(err => {
+			console.log(err)
+		dispatch({type: PLANT_REG_ERROR})
+		});
 };
 
 //sign up user
@@ -81,3 +92,15 @@ export const updateUserInfo = (user, id) => dispatch => {
 		.then(res => console.log(res))
 		.catch(err => console.log(err));
 };
+
+//delete plant
+export const deletePlant = (id, history) => (dispatch) => {
+	dispatch({type: DELETE_START})
+
+	axiosWithAuth().delete(`plants/${id}`)
+	.then(res => {
+		dispatch({type: DELETE_SUCCESS})
+	history.push("/plants")
+	})
+	.catch(err => dispatch({type: DELETE_ERROR}))
+}

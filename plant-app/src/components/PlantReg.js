@@ -35,12 +35,13 @@ function PlantReg({ style, setShow, addNewPlant, user_id }) {
 		user_id: user_id,
 		water: ''
 	});
-
+	//console.log(user_id);
 	//state to disable plant submit button
 	const [disabled, setDisabled] = useState(true);
 
 	//state to set errors for plant
 	const [plantErrors, setPlantErrors] = useState({
+		id: Date.now(),
 		nickname: '',
 		species: '',
 		H20Frequency: '',
@@ -145,7 +146,7 @@ function PlantReg({ style, setShow, addNewPlant, user_id }) {
 						Water On
 						<Input
 							name="water"
-							type="date"
+							type="text"
 							placeholder="yyyy-mm-dd"
 							value={plant.water}
 							onChange={onChange}
