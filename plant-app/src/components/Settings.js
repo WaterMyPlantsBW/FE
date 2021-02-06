@@ -75,7 +75,7 @@ function Settings({ user_id, updateUserInfo }) {
 					<Input
 						name="newPassword"
 						type="text"
-						placeholder="Enter New User Name"
+						placeholder="Enter New Password"
 						value={update.newPassword}
 						onChange={onChange}
 					/>
