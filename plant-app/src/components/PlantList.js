@@ -151,7 +151,7 @@ function PlantList({ fetchPlants, plants, user_id }) {
 				</ButtonContainer>
 			</Top>
 			<PlantsContainer>
-				{plants.length > 0 &&
+				{plants.length > 0 ? (
 					plants.map(plant => (
 						<Link key={plant.id} style={{ color: '#fff' }} to={`plants/${plant.id}`}>
 							<PreCardContainer>
@@ -159,7 +159,10 @@ function PlantList({ fetchPlants, plants, user_id }) {
 								<img height="100px" width="100px" src={plant.image} alt="plantImage" />
 							</PreCardContainer>
 						</Link>
-					))}
+					))
+				) : (
+					<h1 style={{ color: `rgba(225,225,255, 0.5)` }}>Add some plants!</h1>
+				)}
 			</PlantsContainer>
 		</>
 	);
