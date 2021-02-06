@@ -123,7 +123,7 @@ function PlantList({ fetchPlants, plants, user_id }) {
 
 	useEffect(() => {
 		fetchPlants(user_id);
-	}, []);
+	}, [plants]);
 
 	// console.log(user_id);
 

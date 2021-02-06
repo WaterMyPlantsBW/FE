@@ -18,7 +18,7 @@ const Close = styled.div`
 const schema = yup.object().shape({
 	nickname: yup.string().required('Name is Required'),
 	species: yup.string(),
-	H20Frequency: yup.string().required('Please Enter H20 Frequency'),
+	H2OFrequency: yup.string().required('Please Enter H20 Frequency'),
 	water: yup.string().required(),
 	image: yup.string()
 });
@@ -30,7 +30,7 @@ function PlantReg({ style, setShow, addNewPlant, user_id }) {
 	const [plant, setPlant] = useState({
 		nickname: '',
 		species: '',
-		H20Frequency: '',
+		H2OFrequency: '',
 		image: '',
 		user_id: user_id,
 		water: ''
@@ -43,7 +43,7 @@ function PlantReg({ style, setShow, addNewPlant, user_id }) {
 	const [plantErrors, setPlantErrors] = useState({
 		nickname: '',
 		species: '',
-		H20Frequency: '',
+		H2OFrequency: '',
 		water: '',
 		image: ''
 	});
@@ -76,11 +76,13 @@ function PlantReg({ style, setShow, addNewPlant, user_id }) {
 		addNewPlant(plant, user_id);
 		setShow(false);
 
+		console.log(plant);
+
 		setPlant({
 			id: '',
 			nickname: '',
 			species: '',
-			H20Frequency: '',
+			H2OFrequency: '',
 			water: '',
 			image: ''
 		});
@@ -128,17 +130,17 @@ function PlantReg({ style, setShow, addNewPlant, user_id }) {
 				</div>
 				<div>
 					<Label>
-						H20 Frequency
+						H2O Frequency
 						<Input
-							name="H20Frequency"
+							name="H2OFrequency"
 							type="text"
-							placeholder="Enter H20Frequency"
-							value={plant.H20Frequency}
+							placeholder="Enter H2OFrequency"
+							value={plant.H2OFrequency}
 							onChange={onChange}
 						/>
 					</Label>
 
-					<div style={{ color: 'red' }}>{plantErrors.H20Frequency}</div>
+					<div style={{ color: 'red' }}>{plantErrors.H2OFrequency}</div>
 				</div>
 				<div>
 					<Label>
