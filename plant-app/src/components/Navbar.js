@@ -18,6 +18,7 @@ const Ul = styled.ul`
 	list-style: none;
 	justify-content: space-around;
 	align-items: center;
+	
 `;
 
 const NavItems = styled.li`

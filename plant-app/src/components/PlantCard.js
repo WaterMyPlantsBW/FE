@@ -13,6 +13,10 @@ const CardContainer = styled.div`
 	box-shadow: 0px 7px 28px -5px rgba(0, 0, 0, 0.52);
 	padding: 1.5rem;
 	margin: 0 auto;
+	margin-top: 2rem;
+	display: flex;
+	flex-direction: column;
+
 `;
 
 const CardH1 = styled.div`
@@ -20,6 +24,8 @@ const CardH1 = styled.div`
 	margin: 0 auto;
 	font-size: 1.4rem;
 `;
+
+
 
 const CardImage = styled.img`
 	width: 60%;
@@ -57,7 +63,7 @@ function PlantCard({ plants, history }) {
 	return (
 		<CardContainer>
 			<div>
-				{plants.image ? <CardImage src={plant.image} alt={plant.species} /> : <p>No Picture yet</p>}
+				{plant.image ? <CardImage src={plant.image} alt={plant.species} /> : <p>No Picture yet</p>}
 				
 			</div>
 			<div>

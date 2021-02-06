@@ -161,6 +161,7 @@ function PlantReg({ style, setShow, addNewPlant, user_id }) {
 					<Label>
 						Image
 						<Input
+							id="plantImage"
 							name="image"
 							type="text"
 							placeholder="Enter imageUrl"
