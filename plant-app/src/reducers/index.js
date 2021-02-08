@@ -5,13 +5,19 @@ import {
 	LOGIN_START,
 	LOGIN_SUCCESS,
 	LOGIN_ERROR,
+	PLANT_REG_ERROR,
+	PLANT_REG_SUCCESS,
+	PLANT_REG_START,
+	DELETE_ERROR,
+	DELETE_START,
+	DELETE_SUCCESS,
 } from '../actions';
 
 const intialState = {
 	isFetchingData: false,
 	isFetchingUser: false,
 	plants: [],
-	user_id: '',
+	user_id: JSON.parse(localStorage.getItem('userID')),
 	error: ''
 };
 
@@ -49,16 +55,46 @@ const appReducer = (state = intialState, action) => {
 				...state,
 				isFetchingUser: false,
 				error: '',
-				user_id: action.payload
+				//user_id: action.payload
 			};
 
 		case LOGIN_ERROR:
 			return {
 				...state,
-				isFethingUser: false
+				isFetchingUser: false
 			};
-		
-
+		case PLANT_REG_START:
+			return {
+				...state,
+				isFetchingData: true
+			};
+		case PLANT_REG_SUCCESS:
+			return {
+				...state,
+				plants: action.payload,
+				isFetchingData: false
+			}
+		case PLANT_REG_ERROR:
+			return {
+				...state,
+				isFetchingData:false
+			}
+		case DELETE_START:
+			return {
+				...state,
+				isFetchingData:true
+			}
+		case DELETE_SUCCESS:
+			return {
+				...state,
+				isFetchingData:false,
+				plants: state.plants.filter(plant => plant.id)
+			}
+		case DELETE_ERROR:
+				return {
+					...state,
+					isFetchingData:false
+				}
 		default: {
 			return state;
 		}

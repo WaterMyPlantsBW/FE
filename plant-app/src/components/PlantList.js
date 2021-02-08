@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchPlants } from '../actions';
 import styled from 'styled-components';
@@ -23,6 +24,10 @@ const Button = styled.button`
 	outline: none;
 	cursor: pointer;
 	box-shadow: 0px 7px 28px -5px rgba(0, 0, 0, 0.52);
+
+	@media only screen and (max-width: 480px) {
+		width: 100%;
+	}
 `;
 
 const ButtonContainer = styled.div`
@@ -46,7 +51,10 @@ const ButtonContainer = styled.div`
 const PlantsContainer = styled.div`
 	width: 80%;
 	margin: 1rem auto;
-	height: 600px;
+	padding: 1rem;
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
 	background: rgba(255, 255, 255, 0.1);
 	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 	backdrop-filter: blur(3.5px);
@@ -101,15 +109,23 @@ const Cover = styled.div`
 	z-index: 2;
 `;
 
-function PlantList({ fetchPlants, plants }) {
+const PreCardContainer = styled.div`
+	padding: 1.5rem;
+	margin: 1.4.rem;
+	text-align: center;
+	background-color: #fff;
+	color: black;
+	border-radius: 1.5rem;
+	box-shadow: 0px 7px 28px -5px rgba(0, 0, 0, 0.52);
+`;
+function PlantList({ fetchPlants, plants, user_id }) {
 	const [show, setShow] = useState(false);
 
 	useEffect(() => {
-		const id = JSON.parse(localStorage.getItem('userID'));
-		fetchPlants(id);
-	}, []);
+		fetchPlants(user_id);
+	}, [plants]);
 
-	console.log(plants);
+	// console.log(user_id);
 
 	return (
 		<>
@@ -131,22 +147,24 @@ function PlantList({ fetchPlants, plants }) {
 				</ButtonContainer>
 			</Top>
 			<PlantsContainer>
-				{plants.length > 0 && plants.map(plant => (
-					<h1 key={plant.id} style={{ color: '#fff' }}>
-						{plant.nickname}
-					</h1>
-				))}
+				{plants.length > 0 &&
+					plants.map(plant => (
+						<Link key={plant.id} style={{ color: '#fff' }} to={`plants/${plant.id}`}>
+							<PreCardContainer>
+								<h1>{plant.nickname}</h1>
+								<img height="100px" width="100px" src={plant.image} alt="plantImage" />
+							</PreCardContainer>
+						</Link>
+					))}
 			</PlantsContainer>
 		</>
 	);
 }
-
 const mapStateToProps = state => {
 	return {
-		plants: state.plants
+		plants: state.plants,
+		user_id: state.user_id
 	};
 };
-
 const mapDispatchToProps = { fetchPlants };
-
 export default connect(mapStateToProps, mapDispatchToProps)(PlantList);
