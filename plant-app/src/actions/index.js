@@ -54,7 +54,6 @@ export const loginUser = (login, history) => dispatch => {
 		.post('https://water-my-plants-team-no132.herokuapp.com/auth/login', login)
 		.then(res => {
 			console.log(res);
-			res.setHeader('Access-Control-Allow-Origin', '*');
 			localStorage.setItem('token', res.data.token);
 			localStorage.setItem('userID', res.data.userID);
 			dispatch({ type: LOGIN_SUCCESS, payload: JSON.parse(localStorage.getItem('userID')) });
