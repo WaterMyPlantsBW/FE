@@ -46,6 +46,7 @@ export const Button = styled.button`
 	width: 30%;
 	border-radius: 5px;
 	margin-top: 2rem;
+	cursor: pointer;
 `;
 
 const phoneRegExp = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
@@ -102,8 +103,6 @@ const schema = yup.object().shape({
 		console.log('Login form submitted');
 		e.preventDefault();
 		signUpUser(signUp)
-		
-		
 		
 		setSignUp({
 			username: '',
