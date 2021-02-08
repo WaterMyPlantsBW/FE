@@ -26,9 +26,12 @@ export const USER_UPDATE_SUCCESS = 'USER_UPTATE_SUCCESS';
 export const USER_UPDATE_ERROR = 'USER_UPTATE_ERROR';
 
 //delete plant
-export const DELETE_ERROR = "DELETE_PLANT_ERROR";
-export const DELETE_START = "DELETE_PLANT_START";
-export const DELETE_SUCCESS = "DELETE_PLANT_SUCCESS";
+export const DELETE_ERROR = 'DELETE_PLANT_ERROR';
+export const DELETE_START = 'DELETE_PLANT_START';
+export const DELETE_SUCCESS = 'DELETE_PLANT_SUCCESS';
+
+//log out user
+export const LOGOUT_USER = 'LOGOUT_USER';
 
 // fetch plants once user is logged in
 export const fetchPlants = id => dispatch => {
@@ -50,9 +53,17 @@ export const loginUser = (login, history) => dispatch => {
 			localStorage.setItem('token', res.data.token);
 			localStorage.setItem('userID', res.data.userID);
 			dispatch({ type: LOGIN_SUCCESS, payload: JSON.parse(localStorage.getItem('userID')) });
+
 			history.push('plants');
 		})
 		.catch(err => dispatch({ type: LOGIN_ERROR }));
+};
+
+// user log out
+export const logoutUser = () => dispatch => {
+	dispatch({ type: LOGOUT_USER });
+	localStorage.removeItem('userID');
+	localStorage.removeItem('token');
 };
 
 //add new plant
@@ -64,11 +75,11 @@ export const addNewPlant = (newPlant, id) => dispatch => {
 		.post(`https://water-my-plants-team-no132.herokuapp.com/users/${id}/plants`, newPlant)
 		.then(res => {
 			console.log(res);
-		dispatch({type: PLANT_REG_SUCCESS, payload: res.data})
+			dispatch({ type: PLANT_REG_SUCCESS, payload: res.data });
 		})
 		.catch(err => {
-			console.log(err)
-		dispatch({type: PLANT_REG_ERROR})
+			console.log(err);
+			dispatch({ type: PLANT_REG_ERROR });
 		});
 };
 
@@ -94,13 +105,15 @@ export const updateUserInfo = (user, id) => dispatch => {
 };
 
 //delete plant
-export const deletePlant = (id, history) => (dispatch) => {
-	dispatch({type: DELETE_START})
+export const deletePlant = (id, history) => dispatch => {
+	dispatch({ type: DELETE_START });
 
-	axiosWithAuth().delete(`plants/${id}`)
-	.then(res => {
-		dispatch({type: DELETE_SUCCESS})
-	history.push("/plants")
-	})
-	.catch(err => dispatch({type: DELETE_ERROR}))
-}
+	axiosWithAuth()
+		.delete(`plants/${id}`)
+		.then(res => {
+			console.log(res);
+			history.push('/plants');
+			dispatch({ type: DELETE_SUCCESS, payload: res.data });
+		})
+		.catch(err => dispatch({ type: DELETE_ERROR }));
+};

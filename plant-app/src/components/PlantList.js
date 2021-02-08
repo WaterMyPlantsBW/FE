@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchPlants } from '../actions';
+import { fetchPlants, userLoggedIn } from '../actions';
 import styled from 'styled-components';
 import PlantReg from './PlantReg';
 
@@ -99,9 +99,13 @@ const Circle3 = styled.div`
 `;
 
 const Cover = styled.div`
-	position: absolute;
+	position: fixed;
+	margin: 0;
+	padding: 0;
+	top: 0;
+	left: 0;
 	width: 100%;
-	height: 90%;
+	height: 100%;
 	background: rgba(255, 255, 255, 0.1);
 	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 	backdrop-filter: blur(3.5px);
@@ -123,16 +127,16 @@ function PlantList({ fetchPlants, plants, user_id }) {
 
 	useEffect(() => {
 		fetchPlants(user_id);
-	}, [plants]);
+	}, []);
 
-	// console.log(user_id);
+	console.log(plants);
 
 	return (
 		<>
 			{/* div cover transparent */}
 			{show === true ? <Cover onClick={() => setShow(false)}></Cover> : null}
 			{show === true ? (
-				<PlantReg style={{ zIndex: '3', position: 'absolute', top: '30%', left: '35%' }} setShow={setShow} />
+				<PlantReg style={{ zIndex: '3', position: 'fixed', top: '18%', left: '35%' }} setShow={setShow} />
 			) : null}
 
 			{/* cirlces */}
@@ -147,7 +151,7 @@ function PlantList({ fetchPlants, plants, user_id }) {
 				</ButtonContainer>
 			</Top>
 			<PlantsContainer>
-				{plants.length > 0 &&
+				{plants.length > 0 ? (
 					plants.map(plant => (
 						<Link key={plant.id} style={{ color: '#fff' }} to={`plants/${plant.id}`}>
 							<PreCardContainer>
@@ -155,7 +159,10 @@ function PlantList({ fetchPlants, plants, user_id }) {
 								<img height="100px" width="100px" src={plant.image} alt="plantImage" />
 							</PreCardContainer>
 						</Link>
-					))}
+					))
+				) : (
+					<h1 style={{ color: `rgba(225,225,255, 0.5)` }}>Add some plants!</h1>
+				)}
 			</PlantsContainer>
 		</>
 	);
