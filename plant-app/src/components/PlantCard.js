@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
-import { deletePlant } from '../actions/index';
+import { deletePlant, edit } from '../actions/index';
+import { useDispatch } from 'react-redux';
+import { EDIT_PLANT } from '../actions/index';
 
 const CardContainer = styled.div`
 	text-align: center;
@@ -50,22 +52,97 @@ const Button = styled.button`
 		bottom: 0.5%;
 	}
 `;
-function PlantCard({ plants, history, deletePlant }) {
+function PlantCard({ plants, history, deletePlant, editPlant, edit }) {
 	//Slice of state that contians plant data from PlantReg.js
-
+	const dispatch = useDispatch();
 	const params = useParams();
-
 	const plant = plants.find(plant => plant.id === Number(params.id));
-	console.log(plant);
+
+	const [editedPlant, setEditedPlant] = useState({
+		plant_id: plant.id,
+		nickname: '',
+		species: '',
+		H2OFrequency: '',
+		image: '',
+		water: ''
+	});
+
+	const handleChange = e => {
+		setEditedPlant({ ...editedPlant, [e.target.name]: e.target.value });
+	};
+
+	console.log(editedPlant);
+
 	return (
 		<CardContainer>
 			<div>{plant.image ? <CardImage src={plant.image} alt={plant.species} /> : <p>No Picture yet</p>}</div>
 			<div>
-				<CardH1>{plant.nickname}</CardH1>
-				<CardItem>Species: {plant.species}</CardItem>
-				<CardItem>Watering Frequency: {plant.H20Frequency}</CardItem>
-				<CardItem>Watering Begins On: {plant.water}</CardItem>
-				<Button>Edit</Button>
+				<CardH1>
+					Nickname:{' '}
+					{editPlant ? (
+						<input
+							name="nickname"
+							type="text"
+							placeholder="Enter Nickname"
+							value={editedPlant.nickname}
+							onChange={handleChange}
+						/>
+					) : (
+						plant.nickname
+					)}
+				</CardH1>
+				<CardItem>
+					Species:{' '}
+					{editPlant ? (
+						<input name="species" text="text" value={editedPlant.species} onChange={handleChange} />
+					) : (
+						plant.species
+					)}
+				</CardItem>
+				<CardItem>
+					Watering Frequency:{' '}
+					{editPlant ? (
+						<input
+							name="H2OFrequency"
+							text="text"
+							value={editedPlant.H2OFrequency}
+							onChange={handleChange}
+						/>
+					) : (
+						plant.H2OFrequency
+					)}
+				</CardItem>
+				<CardItem>
+					Watering Begins On:{' '}
+					{editPlant ? (
+						<input
+							name="water"
+							type="date"
+							placeholder="yyyy-mm-dd"
+							value={editedPlant.water}
+							onChange={handleChange}
+						/>
+					) : (
+						plant.water
+					)}
+				</CardItem>
+				<CardItem>
+					Image:{' '}
+					{editPlant ? (
+						<input
+							name="image"
+							type="text"
+							placeholder="Enter image"
+							value={editedPlant.image}
+							onChange={handleChange}
+						/>
+					) : null}
+				</CardItem>
+				{editPlant ? (
+					<Button onClick={() => edit(editedPlant, plant.id)}>Save</Button>
+				) : (
+					<Button onClick={() => dispatch({ type: EDIT_PLANT })}>Edit</Button>
+				)}
 				<Button onClick={() => deletePlant(params.id, history)}>Delete</Button>
 			</div>
 		</CardContainer>
@@ -74,9 +151,10 @@ function PlantCard({ plants, history, deletePlant }) {
 
 const mapStateToProps = state => {
 	return {
-		plants: state.plants
+		plants: state.plants,
+		editPlant: state.editPlant
 	};
 };
-const mapDispatchToProps = { deletePlant };
+const mapDispatchToProps = { deletePlant, edit };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlantCard);

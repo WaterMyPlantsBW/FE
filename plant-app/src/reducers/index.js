@@ -11,14 +11,16 @@ import {
 	DELETE_ERROR,
 	DELETE_START,
 	DELETE_SUCCESS,
-	USER_LOGGED_IN,
-	LOGOUT_USER
+	LOGOUT_USER,
+	EDIT_PLANT,
+	EDIT_SUCCESS
 } from '../actions';
 
 const intialState = {
 	isFetchingData: false,
 	isFetchingUser: false,
 	isUserLoggedIn: false,
+	editPlant: false,
 	plants: [],
 	user_id: JSON.parse(localStorage.getItem('userID')),
 	error: ''
@@ -99,6 +101,7 @@ const appReducer = (state = intialState, action) => {
 			return {
 				...state,
 				isFetchingData: false,
+				editPlant: false,
 				plants: action.payload
 			};
 		case DELETE_ERROR:
@@ -106,6 +109,21 @@ const appReducer = (state = intialState, action) => {
 				...state,
 				isFetchingData: false
 			};
+
+		case EDIT_PLANT: {
+			return {
+				...state,
+				editPlant: true
+			};
+		}
+
+		case EDIT_SUCCESS: {
+			return {
+				...state,
+				editPlant: false
+			};
+		}
+
 		default: {
 			return state;
 		}

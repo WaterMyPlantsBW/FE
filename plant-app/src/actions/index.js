@@ -30,6 +30,10 @@ export const DELETE_ERROR = 'DELETE_PLANT_ERROR';
 export const DELETE_START = 'DELETE_PLANT_START';
 export const DELETE_SUCCESS = 'DELETE_PLANT_SUCCESS';
 
+//edit plant
+export const EDIT_PLANT = 'EDIT_PLANT';
+export const EDIT_SUCCESS = 'EDIT_SUCCESS';
+
 //log out user
 export const LOGOUT_USER = 'LOGOUT_USER';
 
@@ -116,4 +120,16 @@ export const deletePlant = (id, history) => dispatch => {
 			dispatch({ type: DELETE_SUCCESS, payload: res.data });
 		})
 		.catch(err => dispatch({ type: DELETE_ERROR }));
+};
+
+export const edit = (editedPlant, id) => dispatch => {
+	dispatch({ type: EDIT_SUCCESS });
+	console.log(id);
+	axiosWithAuth()
+		.put(`/plants/${id}`, editedPlant)
+		.then(res => {
+			console.log(res);
+			dispatch({ type: EDIT_PLANT });
+		})
+		.catch(err => console.log(err));
 };
