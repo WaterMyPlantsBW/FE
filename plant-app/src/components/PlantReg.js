@@ -148,7 +148,7 @@ function PlantReg({ style, setShow, addNewPlant, user_id }) {
 						Water On
 						<Input
 							name="water"
-							type="text"
+							type="date"
 							placeholder="yyyy-mm-dd"
 							value={plant.water}
 							onChange={onChange}
