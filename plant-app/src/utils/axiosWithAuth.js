@@ -5,7 +5,7 @@ const axiosWithAuth = () => {
 
 	return axios.create({
 		baseURL: 'https://water-my-plants-team-no132.herokuapp.com',
-		headers: { Authorization: token, res: res.setHeader('Access-Control-Allow-Origin', '*') }
+		headers: { Authorization: token }
 	});
 };
 
