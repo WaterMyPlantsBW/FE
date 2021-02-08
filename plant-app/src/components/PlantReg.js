@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import * as yup from 'yup';
+import { connect } from 'react-redux';
 
 import { Label, Input, Form, Button } from './SignUp';
+import { addNewPlant } from '../actions/index';
 
 const Close = styled.div`
 	position: absolute;
@@ -15,34 +17,34 @@ const Close = styled.div`
 //Schema for the shape of the form
 const schema = yup.object().shape({
 	nickname: yup.string().required('Name is Required'),
-	species: yup.string().required('Please Enter Species'),
-	H20Frequency: yup.string().required('Please Enter H20 Frequency'),
+	species: yup.string(),
+	H2OFrequency: yup.string().required('Please Enter H20 Frequency'),
 	water: yup.string().required(),
-	image: yup.string().nullable()
+	image: yup.string()
 });
 
-export default function PlantReg({ style, setShow }) {
+function PlantReg({ style, setShow, addNewPlant, user_id }) {
+	//id
+
 	//State for plant
 	const [plant, setPlant] = useState({
-		id: '',
 		nickname: '',
 		species: '',
-		H20Frequency: '',
-		water: '',
-		image: ''
+		H2OFrequency: '',
+		image: '',
+		user_id: user_id,
+		water: ''
 	});
-
-	// State for a completed plant (can be rendered if needed)
-	const [plantDone, setPlantDone] = useState([]);
-
+	//console.log(user_id);
 	//state to disable plant submit button
 	const [disabled, setDisabled] = useState(true);
 
 	//state to set errors for plant
 	const [plantErrors, setPlantErrors] = useState({
+		id: Date.now(),
 		nickname: '',
 		species: '',
-		H20Frequency: '',
+		H2OFrequency: '',
 		water: '',
 		image: ''
 	});
@@ -69,24 +71,19 @@ export default function PlantReg({ style, setShow }) {
 
 	//Submit function -
 	const onSubmit = e => {
-		console.log('Plant Registration Complete');
 		e.preventDefault();
+		console.log('Plant Registration Complete');
 
-		const plantComplete = {
-			username: plant.nickname.trim(),
-			species: plant.species,
-			H20Frequency: plant.H20Frequency,
-			water: plant.water,
-			image: plant.image
-		};
-		
-		setPlantDone([...plantDone, plantComplete]);
+		addNewPlant(plant, user_id);
+		setShow(false);
+
+		console.log(plant);
 
 		setPlant({
 			id: '',
 			nickname: '',
 			species: '',
-			H20Frequency: '',
+			H2OFrequency: '',
 			water: '',
 			image: ''
 		});
@@ -121,7 +118,7 @@ export default function PlantReg({ style, setShow }) {
 						Species
 						<Input
 							name="species"
-							type="species"
+							type="text"
 							placeholder="Enter Species"
 							value={plant.species}
 							onChange={onChange}
@@ -134,24 +131,24 @@ export default function PlantReg({ style, setShow }) {
 				</div>
 				<div>
 					<Label>
-						H20 Frequency
+						H2O Frequency
 						<Input
-							name="H20Frequency"
-							type="H20Frequency"
-							placeholder="Enter H20Frequency"
-							value={plant.H20Frequency}
+							name="H2OFrequency"
+							type="text"
+							placeholder="Enter H2OFrequency"
+							value={plant.H2OFrequency}
 							onChange={onChange}
 						/>
 					</Label>
 
-					<div style={{ color: 'red' }}>{plantErrors.H20Frequency}</div>
+					<div style={{ color: 'red' }}>{plantErrors.H2OFrequency}</div>
 				</div>
 				<div>
 					<Label>
 						Water On
 						<Input
 							name="water"
-							type="date"
+							type="text"
 							placeholder="yyyy-mm-dd"
 							value={plant.water}
 							onChange={onChange}
@@ -164,9 +161,9 @@ export default function PlantReg({ style, setShow }) {
 					<Label>
 						Image
 						<Input
+							id="plantImage"
 							name="image"
 							type="text"
-							alt="userImage"
 							placeholder="Enter imageUrl"
 							value={plant.image}
 							onChange={onChange}
@@ -181,3 +178,13 @@ export default function PlantReg({ style, setShow }) {
 		</Form>
 	);
 }
+
+const mapStateTopProps = state => {
+	return {
+		user_id: state.user_id
+	};
+};
+
+const mapDispatchToProps = { addNewPlant };
+
+export default connect(mapStateTopProps, mapDispatchToProps)(PlantReg);

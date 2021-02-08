@@ -1,70 +1,88 @@
-import React from 'react'
-
-import styled from 'styled-components'
+import React from 'react';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
+import { deletePlant } from "../actions/index"
 
 const CardContainer = styled.div`
-    text-align: center;
-    width: 35%;
-    border-radius: 1rem; 
+	text-align: center;
+	width: 65%;
+	border-radius: 1rem;
 	background: #fff;
-    align-items: center;
-    color: black;
-    box-shadow: 0px 7px 28px -5px rgba(0, 0, 0, 0.52);
-`
+	color: black;
+	box-shadow: 0px 7px 28px -5px rgba(0, 0, 0, 0.52);
+	padding: 1.5rem;
+	margin: 0 auto;
+	margin-top: 2rem;
+	display: flex;
+	flex-direction: column;
+
+`;
+
 const CardH1 = styled.div`
-   padding: 1em;
-   margin: 0 auto;
-   font-size: 30px;
-`
+	padding: 1em;
+	margin: 0 auto;
+	font-size: 1.4rem;
+`;
+
+
 
 const CardImage = styled.img`
-    width: 60%;
-    height: 60%;
-    
-
-`
+	width: 60%;
+	height: 60%;
+`;
 const CardItem = styled.div`
-    padding; 4rem;
-    margin; 1em;
-    font-size: 20px;
-`
+	font-size: 1rem;
+`;
 
 const Button = styled.button`
-background: rgba(0, 0, 0, 0.2);
-padding: 0.6rem 1rem;
-border-radius: 2px;
+	background: rgba(174, 174, 174, 0.2);
+	padding: 0.6rem 1rem;
+	border-radius: 2px;
+	margin: 0.9rem;
+	border-radius: 10px;
+	border: none;
+	transition: all 0.2s ease-in-out;
+	font-weight: bold;
+	position: relative;
 
-transition: all 0.2s ease-in-out;
-font-weight: bold;
+	&:hover {
+		color: #0f084b;
+		background: rgb(160, 210, 218);
+		box-shadow: 0px 7px 28px -5px rgba(0, 0, 0, 0.52);
+		bottom: 0.5%;
+	}
+`;
+function PlantCard({ plants, history }) {
+	//Slice of state that contians plant data from PlantReg.js
+//console.log(history)
+	const params = useParams();
 
-&:hover {
-    color: #0f084b;
-    background: rgb(160, 210, 218);
-    box-shadow: 0px 7px 28px -5px rgba(0, 0, 0, 0.52);
-    margin-bottom: 0.5rem;
+	const plant = plants.find(plant => plant.id === Number(params.id));
+
+	return (
+		<CardContainer>
+			<div>
+				{plant.image ? <CardImage src={plant.image} alt={plant.species} /> : <p>No Picture yet</p>}
+				
+			</div>
+			<div>
+				<CardH1>{plant.nickname}</CardH1>
+				<CardItem>Species: {plant.species}</CardItem>
+				<CardItem>Watering Frequency: {plant.H20Frequency}</CardItem>
+				<CardItem>Watering Begins On: {plant.water}</CardItem>
+				<Button>Edit</Button>
+				<Button onClick={() => deletePlant(params.id, history)}>Delete</Button>
+			</div>
+		</CardContainer>
+	);
 }
 
-`
-export default function PlantCard (props){
+const mapStateToProps = state => {
+	return {
+		plants: state.plants
+	};
+};
+const mapDispatchToProps = {deletePlant}
 
-    //Slice of state that contians plant data from PlantReg.js
-    const { plant } = props
-
-
-    return(
-        <CardContainer>
-            <CardH1>{plant.nickname}</CardH1>
-                
-                <div>
-                    <CardImage src={plant.image} alt={plant.species} />
-                </div>
-                <CardItem>Species: {plant.species}</CardItem>
-                <CardItem>Watering Frequency: {plant.H20Frequency}</CardItem>
-                <CardItem>Watering Begins On: {plant.water}</CardItem>
-                <Button>Edit</Button>
-                <Button>Delete</Button>
-            
-        </CardContainer>
-        
-    )
-}
+export default connect(mapStateToProps,mapDispatchToProps)(PlantCard);
