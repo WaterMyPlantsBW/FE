@@ -57,7 +57,7 @@ export const loginUser = (login, history) => dispatch => {
 			console.log(res);
 			localStorage.setItem('token', res.data.token);
 			localStorage.setItem('userID', res.data.userID);
-			dispatch({ type: LOGIN_SUCCESS, payload: JSON.parse(localStorage.getItem('userID')) });
+			dispatch({ type: LOGIN_SUCCESS });
 
 			history.push('plants');
 		})
@@ -66,9 +66,9 @@ export const loginUser = (login, history) => dispatch => {
 
 // user log out
 export const logoutUser = () => dispatch => {
-	dispatch({ type: LOGOUT_USER });
 	localStorage.removeItem('userID');
 	localStorage.removeItem('token');
+	dispatch({ type: LOGOUT_USER });
 };
 
 //add new plant
@@ -128,8 +128,8 @@ export const deletePlant = (id, history) => dispatch => {
 		.catch(err => dispatch({ type: DELETE_ERROR }));
 };
 
-export const edit = (editedPlant, id) => dispatch => {
-	console.log(editedPlant);
+//edit plant
+export const edit = (editedPlant, id, history) => dispatch => {
 	axiosWithAuth()
 		.put(`/plants/${id}`, editedPlant)
 		.then(res => {

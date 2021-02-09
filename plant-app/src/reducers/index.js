@@ -19,10 +19,10 @@ import {
 const intialState = {
 	isFetchingData: false,
 	isFetchingUser: false,
-	isUserLoggedIn: false,
+	isUserLoggedIn: localStorage.getItem('userID') ? true : false,
 	editPlant: false,
 	plants: [],
-	user_id: JSON.parse(localStorage.getItem('userID')),
+	userId: JSON.parse(localStorage.getItem('userID')),
 	error: ''
 };
 
@@ -35,6 +35,7 @@ const appReducer = (state = intialState, action) => {
 			};
 
 		case FETCH_DATA_SUCCES:
+			console.log('data success being called');
 			return {
 				...state,
 				isFetchingData: false,
@@ -56,12 +57,13 @@ const appReducer = (state = intialState, action) => {
 			};
 
 		case LOGIN_SUCCESS:
+			console.log(state.isUserLoggedIn);
 			return {
 				...state,
 				isFetchingUser: false,
 				isUserLoggedIn: true,
-				error: '',
-				user_id: action.payload
+				error: ''
+				// user_id: action.payload
 			};
 
 		case LOGIN_ERROR:

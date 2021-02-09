@@ -122,14 +122,12 @@ const PreCardContainer = styled.div`
 	border-radius: 1.5rem;
 	box-shadow: 0px 7px 28px -5px rgba(0, 0, 0, 0.52);
 `;
-function PlantList({ fetchPlants, plants, user_id }) {
+function PlantList({ fetchPlants, plants, userId }) {
 	const [show, setShow] = useState(false);
 
 	useEffect(() => {
-		fetchPlants(user_id);
+		fetchPlants(userId);
 	}, []);
-
-	console.log(plants);
 
 	return (
 		<>
@@ -170,7 +168,7 @@ function PlantList({ fetchPlants, plants, user_id }) {
 const mapStateToProps = state => {
 	return {
 		plants: state.plants,
-		user_id: state.user_id
+		userId: state.userId
 	};
 };
 const mapDispatchToProps = { fetchPlants };

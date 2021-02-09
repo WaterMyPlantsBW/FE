@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { deletePlant, edit } from '../actions/index';
 import { useDispatch } from 'react-redux';
+import axiosWithAuth from '../utils/axiosWithAuth';
 import { EDIT_PLANT } from '../actions/index';
 
 const CardContainer = styled.div`
@@ -52,23 +53,43 @@ const Button = styled.button`
 		bottom: 0.5%;
 	}
 `;
-function PlantCard({ plants, history, deletePlant, editPlant, edit }) {
+function PlantCard({ history, deletePlant, editPlant, edit }) {
 	//Slice of state that contians plant data from PlantReg.js
 	const dispatch = useDispatch();
 	const params = useParams();
-	const plant = plants.find(plant => plant.id === Number(params.id));
 
-	const [editedPlant, setEditedPlant] = useState({
-		user_id: plant.UserID,
+	const [plant, setPlant] = useState({
+		H2OFrequency: '',
+		user_id: '',
+		id: '',
+		image: '',
 		nickname: '',
 		species: '',
-		H2OFrequency: '',
-		image: '',
 		water: ''
 	});
 
+	useEffect(() => {
+		axiosWithAuth()
+			.get(`/plants/${params.id}`)
+			.then(res => {
+				console.log(res.data);
+				setPlant({
+					H2OFrequency: res.data.H2OFrenquency,
+					user_id: res.data.UserID,
+					id: res.data.id,
+					image: res.data.image,
+					nickname: res.data.nickname,
+					species: res.data.species,
+					water: res.data.water
+				});
+			})
+			.catch(err => console.log(err));
+	}, []);
+
+	console.log(plant);
+
 	const handleChange = e => {
-		setEditedPlant({ ...editedPlant, [e.target.name]: e.target.value });
+		setPlant({ ...plant, [e.target.name]: e.target.value });
 	};
 
 	return (
@@ -82,7 +103,7 @@ function PlantCard({ plants, history, deletePlant, editPlant, edit }) {
 							name="nickname"
 							type="text"
 							placeholder="Enter Nickname"
-							value={editedPlant.nickname}
+							value={plant.nickname}
 							onChange={handleChange}
 						/>
 					) : (
@@ -92,7 +113,7 @@ function PlantCard({ plants, history, deletePlant, editPlant, edit }) {
 				<CardItem>
 					Species:{' '}
 					{editPlant ? (
-						<input name="species" text="text" value={editedPlant.species} onChange={handleChange} />
+						<input name="species" text="text" value={plant.species} onChange={handleChange} />
 					) : (
 						plant.species
 					)}
@@ -100,12 +121,7 @@ function PlantCard({ plants, history, deletePlant, editPlant, edit }) {
 				<CardItem>
 					Watering Frequency:{' '}
 					{editPlant ? (
-						<input
-							name="H2OFrequency"
-							text="text"
-							value={editedPlant.H2OFrequency}
-							onChange={handleChange}
-						/>
+						<input name="H2OFrequency" text="text" value={plant.H2OFrequency} onChange={handleChange} />
 					) : (
 						plant.H2OFrequency
 					)}
@@ -117,7 +133,7 @@ function PlantCard({ plants, history, deletePlant, editPlant, edit }) {
 							name="water"
 							type="date"
 							placeholder="yyyy-mm-dd"
-							value={editedPlant.water}
+							value={plant.water}
 							onChange={handleChange}
 						/>
 					) : (
@@ -125,19 +141,21 @@ function PlantCard({ plants, history, deletePlant, editPlant, edit }) {
 					)}
 				</CardItem>
 				<CardItem>
-					Image:{' '}
 					{editPlant ? (
-						<input
-							name="image"
-							type="text"
-							placeholder="Enter image"
-							value={editedPlant.image}
-							onChange={handleChange}
-						/>
+						<>
+							<CardItem>Image:</CardItem>
+							<input
+								name="image"
+								type="text"
+								placeholder="Enter image"
+								value={plant.image}
+								onChange={handleChange}
+							/>
+						</>
 					) : null}
 				</CardItem>
 				{editPlant ? (
-					<Button onClick={() => edit(editedPlant, plant.id)}>Save</Button>
+					<Button onClick={() => edit(plant, plant.id, history)}>Save</Button>
 				) : (
 					<Button onClick={() => dispatch({ type: EDIT_PLANT })}>Edit</Button>
 				)}
@@ -148,6 +166,7 @@ function PlantCard({ plants, history, deletePlant, editPlant, edit }) {
 }
 
 const mapStateToProps = state => {
+	console.log('state.plants: ', state.plants);
 	return {
 		plants: state.plants,
 		editPlant: state.editPlant
