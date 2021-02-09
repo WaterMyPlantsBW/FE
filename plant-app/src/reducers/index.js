@@ -66,6 +66,7 @@ const appReducer = (state = intialState, action) => {
 		case LOGIN_START:
 			return {
 				...state,
+				isFetchingData: true,
 				isFetchingUser: true
 			};
 
@@ -128,6 +129,7 @@ const appReducer = (state = intialState, action) => {
 		case EDIT_PLANT: {
 			return {
 				...state,
+				isFetchingData: true,
 				editPlant: true
 			};
 		}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Spinner from "./Loader";
 import * as yup from 'yup';
 import { connect } from 'react-redux';
 
@@ -13,7 +14,7 @@ const schema = yup.object().shape({
 });
 
 // Route passes history as props and loginUser passed as props through redux(connect);
-function Login({ loginUser, history }) {
+function Login({ loginUser, history, isFetchingData }) {
 	//State for login
 	const [login, setLogin] = useState({
 		username: '',
@@ -66,7 +67,8 @@ function Login({ loginUser, history }) {
 
 	return (
 		<Container>
-			<Form onSubmit={onSubmit}>
+			{isFetchingData === true ? <Spinner /> :
+			(<Form onSubmit={onSubmit}>
 				<h2>Login</h2>
 
 				<Label htmlFor="username">Username</Label>
@@ -95,13 +97,14 @@ function Login({ loginUser, history }) {
 
 				<Button disabled={disabled}>Login</Button>
 			</Form>
+			)}
 		</Container>
 	);
 }
 
 const mapStateToProps = state => {
 	return {
-		state
+		isFetchingData: state.isFetchingData
 	};
 };
 
