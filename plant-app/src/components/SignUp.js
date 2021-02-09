@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import Spinner from "./Loader"
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { signUpUser } from '../actions';
@@ -58,7 +58,7 @@ const schema = yup.object().shape({
 	phoneNumber: yup.string().matches(phoneRegExp, 'is not valid').nullable()
 });
 
-function SignUp({ signUpUser, history }) {
+function SignUp({ signUpUser, history, isFetchingData }) {
 	//State for login
 	const [signUp, setSignUp] = useState({
 		username: '',
@@ -111,7 +111,8 @@ function SignUp({ signUpUser, history }) {
 
 	return (
 		<Container>
-			<Form onSubmit={onSubmit}>
+			{isFetchingData === true ? <Spinner /> : 
+			(<Form onSubmit={onSubmit}>
 				<h2>Sign Up</h2>
 
 				<Label htmlFor="username">Username </Label>
@@ -150,14 +151,15 @@ function SignUp({ signUpUser, history }) {
 					onChange={onChange}
 				/>
 				<Button disabled={disabled}>Sign Up</Button>
-			</Form>
+			</Form> 
+			)}
 		</Container>
 	);
 }
 
 const mapStateToProps = state => {
 	return {
-		state
+		isFetchingData: state.isFetchingData
 	};
 };
 const mapDispatchToProps = { signUpUser };

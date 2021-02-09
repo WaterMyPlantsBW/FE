@@ -99,7 +99,7 @@ function PlantReg({ style, setShow, addNewPlant, user_id }) {
 			<div>
 				<div>
 					<Label>
-						Nickname
+						Plant Nickname
 						<Input
 							name="nickname"
 							type="text"
@@ -115,11 +115,11 @@ function PlantReg({ style, setShow, addNewPlant, user_id }) {
 				</div>
 				<div>
 					<Label>
-						Species
+						Plant Species
 						<Input
 							name="species"
 							type="text"
-							placeholder="Enter Species"
+							placeholder="Unknown"
 							value={plant.species}
 							onChange={onChange}
 						/>

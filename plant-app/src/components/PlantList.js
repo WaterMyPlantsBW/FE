@@ -168,7 +168,8 @@ function PlantList({ fetchPlants, plants, userId }) {
 const mapStateToProps = state => {
 	return {
 		plants: state.plants,
-		userId: state.userId
+		userId: state.userId,
+		isFetchingData: state.isFetchingData
 	};
 };
 const mapDispatchToProps = { fetchPlants };
