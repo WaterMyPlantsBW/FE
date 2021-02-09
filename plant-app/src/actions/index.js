@@ -88,12 +88,13 @@ export const addNewPlant = (newPlant, id) => dispatch => {
 };
 
 //sign up user
-export const signUpUser = signUp => dispatch => {
+export const signUpUser = (signUp, history) => dispatch => {
 	dispatch({ type: SIGNUP_USER });
 
 	axios
 		.post('https://water-my-plants-team-no132.herokuapp.com/auth/register', signUp)
 		.then(res => {
+			history.push('login');
 			console.log(res);
 		})
 		.catch(err => console.log(err));

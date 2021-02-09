@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
-import {connect} from 'react-redux'
-import {signUpUser}  from "../actions"
+import { connect } from 'react-redux';
+import { signUpUser } from '../actions';
 import * as yup from 'yup';
 
 //Styling
@@ -58,16 +58,14 @@ const schema = yup.object().shape({
 	phoneNumber: yup.string().matches(phoneRegExp, 'is not valid').nullable()
 });
 
- function SignUp({signUpUser}) {
+function SignUp({ signUpUser, history }) {
 	//State for login
 	const [signUp, setSignUp] = useState({
-	
 		username: '',
 		password: '',
 		phoneNumber: ''
 	});
 
-	
 	//state to disable login submit button
 	const [disabled, setDisabled] = useState(true);
 
@@ -102,8 +100,8 @@ const schema = yup.object().shape({
 	const onSubmit = e => {
 		console.log('Login form submitted');
 		e.preventDefault();
-		signUpUser(signUp)
-		
+		signUpUser(signUp, history);
+
 		setSignUp({
 			username: '',
 			password: '',
@@ -157,10 +155,10 @@ const schema = yup.object().shape({
 	);
 }
 
-const mapStateToProps = state =>{
+const mapStateToProps = state => {
 	return {
 		state
 	};
-}
+};
 const mapDispatchToProps = { signUpUser };
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
