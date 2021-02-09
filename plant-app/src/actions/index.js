@@ -95,9 +95,10 @@ export const signUpUser = (signUp, history) => dispatch => {
 	axios
 		.post('https://water-my-plants-team-no132.herokuapp.com/auth/register', signUp)
 		.then(res => {
-			history.push('login');
-			dispatch({ type: SIGNUP_SUCCESS });
 			console.log(res);
+			dispatch({ type: SIGNUP_SUCCESS, payload: res.data.id });
+			history.push('/login');
+			
 		})
 		.catch(err => console.log(err));
 };
