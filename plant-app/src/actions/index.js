@@ -124,12 +124,11 @@ export const deletePlant = (id, history) => dispatch => {
 
 export const edit = (editedPlant, id) => dispatch => {
 	dispatch({ type: EDIT_SUCCESS });
-	console.log(id);
+	console.log(editedPlant);
 	axiosWithAuth()
 		.put(`/plants/${id}`, editedPlant)
 		.then(res => {
 			console.log(res);
-			dispatch({ type: EDIT_PLANT });
 		})
 		.catch(err => console.log(err));
 };

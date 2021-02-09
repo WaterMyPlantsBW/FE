@@ -59,7 +59,7 @@ function PlantCard({ plants, history, deletePlant, editPlant, edit }) {
 	const plant = plants.find(plant => plant.id === Number(params.id));
 
 	const [editedPlant, setEditedPlant] = useState({
-		plant_id: plant.id,
+		user_id: plant.UserID,
 		nickname: '',
 		species: '',
 		H2OFrequency: '',
@@ -70,8 +70,6 @@ function PlantCard({ plants, history, deletePlant, editPlant, edit }) {
 	const handleChange = e => {
 		setEditedPlant({ ...editedPlant, [e.target.name]: e.target.value });
 	};
-
-	console.log(editedPlant);
 
 	return (
 		<CardContainer>
