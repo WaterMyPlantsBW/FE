@@ -130,6 +130,7 @@ export const deletePlant = (id, history) => dispatch => {
 
 //edit plant
 export const edit = (editedPlant, id, history) => dispatch => {
+	dispatch({type: EDIT_PLANT});
 	axiosWithAuth()
 		.put(`/plants/${id}`, editedPlant)
 		.then(res => {
