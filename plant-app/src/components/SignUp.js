@@ -98,8 +98,8 @@ function SignUp({ signUpUser, history }) {
 
 	//Submit function -
 	const onSubmit = e => {
-		console.log('Login form submitted');
 		e.preventDefault();
+		console.log('Login form submitted');
 		signUpUser(signUp, history);
 
 		setSignUp({

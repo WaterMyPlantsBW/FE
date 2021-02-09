@@ -181,7 +181,7 @@ function PlantReg({ style, setShow, addNewPlant, user_id }) {
 
 const mapStateTopProps = state => {
 	return {
-		user_id: state.user_id
+		user_id: state.userId
 	};
 };
 

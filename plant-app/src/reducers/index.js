@@ -13,7 +13,9 @@ import {
 	DELETE_SUCCESS,
 	LOGOUT_USER,
 	EDIT_PLANT,
-	EDIT_SUCCESS
+	EDIT_SUCCESS,
+	SIGNUP_SUCCESS,
+	SIGNUP_USER
 } from '../actions';
 
 const intialState = {
@@ -22,12 +24,23 @@ const intialState = {
 	isUserLoggedIn: localStorage.getItem('userID') ? true : false,
 	editPlant: false,
 	plants: [],
-	userId: JSON.parse(localStorage.getItem('userID')),
+	userId: localStorage.getItem('userID'),
 	error: ''
 };
 
 const appReducer = (state = intialState, action) => {
 	switch (action.type) {
+		case SIGNUP_USER:
+			return {
+				...state,
+				isFetchingData: true,
+				
+			}
+		case SIGNUP_SUCCESS:
+			return {
+					...state,
+					isFetchingData: false,
+				}
 		case FETCH_DATA_START:
 			return {
 				...state,
