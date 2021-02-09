@@ -19,6 +19,7 @@ export const PLANT_REG_ERROR = 'PLANT_REG_ERROR';
 
 //user signup
 export const SIGNUP_USER = 'SIGNUP_USER';
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 
 //user update
 export const USER_UPDATE_START = 'USER_UPTATE_START';
@@ -95,6 +96,7 @@ export const signUpUser = (signUp, history) => dispatch => {
 		.post('https://water-my-plants-team-no132.herokuapp.com/auth/register', signUp)
 		.then(res => {
 			history.push('login');
+			dispatch({ type: SIGNUP_SUCCESS });
 			console.log(res);
 		})
 		.catch(err => console.log(err));
@@ -105,7 +107,10 @@ export const updateUserInfo = (user, id) => dispatch => {
 	dispatch({ type: USER_UPDATE_START });
 	axiosWithAuth()
 		.put(`/users/${id}`, user)
-		.then(res => console.log(res))
+		.then(res => {
+			dispatch({ type: USER_UPDATE_SUCCESS });
+			console.log(res);
+		})
 		.catch(err => console.log(err));
 };
 
@@ -124,11 +129,11 @@ export const deletePlant = (id, history) => dispatch => {
 };
 
 export const edit = (editedPlant, id) => dispatch => {
-	dispatch({ type: EDIT_SUCCESS });
 	console.log(editedPlant);
 	axiosWithAuth()
 		.put(`/plants/${id}`, editedPlant)
 		.then(res => {
+			dispatch({ type: EDIT_SUCCESS });
 			console.log(res);
 		})
 		.catch(err => console.log(err));
