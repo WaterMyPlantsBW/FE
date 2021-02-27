@@ -74,7 +74,7 @@ function PlantCard({ history, deletePlant, editPlant, edit }) {
 			.then(res => {
 				console.log(res.data);
 				setPlant({
-					H2OFrequency: res.data.H2OFrenquency,
+					H2OFrequency: res.data.H2OFrequency,
 					user_id: res.data.UserID,
 					id: res.data.id,
 					image: res.data.image,
